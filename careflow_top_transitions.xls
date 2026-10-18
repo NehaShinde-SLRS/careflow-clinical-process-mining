@@ -1,0 +1,11 @@
+From Activity,To Activity,Count
+Appointment,Prescription Started,47939
+Prescription Started,Prescription Started,12417
+Lab Started,Lab Started,11618
+Prescription Started,Lab Started,5296
+Prescription Started,Imaging Started,2975
+Imaging Started,Prescription Started,1664
+Appointment,Imaging Started,1600
+Imaging Started,Lab Started,614
+Lab Started,Imaging Started,481
+Lab Started,Prescription Started,385
