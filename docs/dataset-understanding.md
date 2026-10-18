@@ -15,7 +15,7 @@ The HospitalOPD dataset was inspected using Python, pandas, and Google Colab.
 - Patients with multiple appointments: 7,120
 - Appointments linked to multiple patients: 0
 
-## 3. Important Columns
+## 3. Data Dictionary
 
 | Column | Description |
 |---|---|
@@ -37,7 +37,7 @@ The HospitalOPD dataset was inspected using Python, pandas, and Google Colab.
 - Many records have missing lab, imaging, and pharmacy timestamps.
 - Some lab and imaging identifiers are associated with multiple appointments.
 
-Repeated appointment IDs do not automatically mean that records are duplicates. Missing timestamps and event associations require validation during data cleaning.
+Repeated appointment IDs do not automatically indicate duplicate records. Missing timestamps and event associations require validation during data cleaning.
 
 ## 5. Event Log Preparation
 
@@ -51,9 +51,16 @@ The dataset needs to be transformed into an event log for process mining. The pr
 
 The final Case_ID rule, activity labels, and event mappings must be validated with the team before creating the final event log.
 
-## 6. Next Steps
+## 6. Data Quality Verification
+
+Initial checks identified 62,422 records, 39,442 unique patients, and 49,912 unique appointments. There were no exact duplicate rows or duplicate record numbers in the initial dataset.
+
+The dataset still requires validation of missing timestamps, event associations, and repeated identifiers before process mining.
+
+## 7. Next Steps
 
 - Validate the associations between appointments and clinical activities.
 - Investigate missing timestamps.
 - Confirm event-log mapping and case identification rules with the team.
 - Prepare and validate the event log for process-mining analysis.
+- Share the dataset findings with the project team.
