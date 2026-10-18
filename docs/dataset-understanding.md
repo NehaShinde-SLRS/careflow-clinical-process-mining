@@ -2,45 +2,58 @@
 
 ## 1. Project Overview
 
-CareFlow is a Clinical Pathway Process Mining project that analyzes healthcare event logs to understand patient treatment pathways.
+CareFlow is a Clinical Pathway Process Mining project that analyzes healthcare event data to understand patient appointment pathways and related clinical activities.
 
 ## 2. Dataset Summary
 
-The Sepsis Treatment Careflow dataset was loaded and analyzed using Python, pandas, and Google Colab.
+The HospitalOPD dataset was inspected using Python, pandas, and Google Colab.
 
-- Initial event records: 15,190
-- Unique cases: 1,049
-- Unique activities: 16
-- Exact duplicate rows identified: 7
-- Records after removing duplicates: 15,183
-- Missing values in key columns: 0
+- Total records: 62,422
+- Original columns: 25
+- Unique patients: 39,442
+- Unique appointments: 49,912
+- Patients with multiple appointments: 7,120
+- Appointments linked to multiple patients: 0
 
-## 3. Data Dictionary
+## 3. Important Columns
 
 | Column | Description |
 |---|---|
-| Case_ID | Identifies a patient case |
-| Activity | Represents a healthcare event |
-| Timestamp | Records the date and time of an event |
+| patient_id | Identifies a patient |
+| appointment_id | Identifies an appointment |
+| appointment_start_datetime | Records the appointment start time |
+| prescription_start_datetime | Records the prescription start time |
+| lab_start_datetime | Records the laboratory activity start time |
+| imaging_start_datetime | Records the imaging activity start time |
+| pharmacy_start_datetime | Records the pharmacy activity start time |
+| flow_name | Identifies the workflow type |
 
-## 4. Data Cleaning
+## 4. Initial Data Quality Findings
 
-The dataset was inspected for missing values and exact duplicate records. The Timestamp column was converted to datetime format, and seven exact duplicate rows were removed.
+- The `Unnamed: 2` column is completely empty.
+- No exact duplicate rows were identified.
+- No duplicate record numbers were identified.
+- Twelve records have missing prescription start timestamps.
+- Many records have missing lab, imaging, and pharmacy timestamps.
+- Some lab and imaging identifiers are associated with multiple appointments.
 
-The cleaned dataset was sorted by Case_ID and Timestamp and saved as a separate CSV file.
+Repeated appointment IDs do not automatically mean that records are duplicates. Missing timestamps and event associations require validation during data cleaning.
 
-## 5. Timestamp Range
+## 5. Event Log Preparation
 
-- Start: 7 November 2013
-- End: 5 June 2015
+The dataset needs to be transformed into an event log for process mining. The proposed event log fields are:
 
-## 6. Data Quality Verification
+- Case_ID
+- Patient_ID
+- Activity
+- Timestamp
+- Event_ID
 
-After cleaning, the dataset contained 15,183 records, 1,049 unique cases, and 16 unique activities. No missing values or exact duplicate rows remained in the cleaned dataset.
+The final Case_ID rule, activity labels, and event mappings must be validated with the team before creating the final event log.
 
-## 7. Next Steps
+## 6. Next Steps
 
-- Complete the dataset source and license verification.
-- Assess the dataset's suitability for process mining.
-- Share the dataset findings with the team.
-- Support the next stages of clinical pathway process analysis.
+- Validate the associations between appointments and clinical activities.
+- Investigate missing timestamps.
+- Confirm event-log mapping and case identification rules with the team.
+- Prepare and validate the event log for process-mining analysis.
