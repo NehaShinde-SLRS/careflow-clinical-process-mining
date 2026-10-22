@@ -98,3 +98,23 @@ These records should be reviewed without automatically changing or deleting the 
 4. Confirm the case identifier and event-log mapping before process mining.
 5. Prepare and validate a reliable event log for the project team.
 6. Preserve the original dataset for reference.
+   ## 7. Cleaned Dataset Validation 
+
+### Objective
+Validate the cleaned HospitalOPD dataset received from Member 2 before using it for CareFlow process mining.
+
+### Validation Activities
+1. Received the cleaned dataset from the team member responsible for data cleaning.
+2. Plan to compare the row and column counts with the original dataset.
+3. Check missing patient and appointment identifiers.
+4. Verify timestamp formats for appointment, prescription, lab, imaging, and pharmacy activities.
+5. Review prescription start and end timestamp inconsistencies.
+6. Investigate unusual lab end timestamp values.
+7. Check for duplicate records and verify appointment-to-activity relationships.
+8. Document any remaining data quality issues.
+
+### Current Status
+The cleaned dataset has been received from Member 2. Detailed validation results will be documented after comparing the cleaned dataset with the original HospitalOPD dataset.
+
+### Expected Outcome
+A validated dataset suitable for preparing the event log for the next stage of CareFlow process mining.
