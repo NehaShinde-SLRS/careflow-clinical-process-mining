@@ -118,3 +118,52 @@ The cleaned dataset has been received from Member 2. Detailed validation results
 
 ### Expected Outcome
 A validated dataset suitable for preparing the event log for the next stage of CareFlow process mining.
+## 7. Cleaned Dataset Validation 
+
+### 7.1 Dataset Structure
+
+The cleaned HospitalOPD dataset was received from the team member responsible for data cleaning.
+
+- Total records: 62,422
+- Total columns: 24
+- Unique patients: 39,442
+- Unique appointments: 49,912
+- Missing patient IDs: 0
+- Missing appointment IDs: 0
+- Exact duplicate rows: 0
+- Duplicate record numbers: 0
+
+The cleaned dataset contains one fewer column than the original dataset because the entirely empty `Unnamed: 2` column is no longer present.
+
+### 7.2 Timestamp Validation
+
+- Appointment start timestamps: 62,422 valid values
+- Prescription start timestamps: 62,410 valid values; 12 missing
+- Prescription end timestamps: 62,421 valid values; 1 missing
+- Lab start timestamps: 18,029 valid values
+- Lab end timestamps: 13,327 valid values
+- Imaging start timestamps: 5,523 valid values
+- Imaging end timestamps: 5,513 valid values
+- Pharmacy start and end timestamps: 302 valid values each
+
+The timestamp values listed above could be parsed using the current timestamp format.
+
+### 7.3 Prescription Timestamp Inconsistencies
+
+A comparison of prescription start and end timestamps identified 52 records where the end timestamp occurs before the start timestamp. These records require further investigation before the dataset is used for process mining.
+
+### 7.4 Activity Timestamp Checks
+
+No end-before-start inconsistencies were found among records with parseable lab, imaging, or pharmacy start and end timestamps.
+
+### 7.5 Remaining Validation Tasks
+
+1. Investigate missing prescription timestamps.
+2. Review prescription records with inconsistent start and end times.
+3. Confirm how unusual lab end values were handled during cleaning.
+4. Validate relationships between appointments and clinical activities.
+5. Confirm the case identifier and event-log mapping with the project team.
+
+### Conclusion
+
+The cleaned dataset retains 62,422 records and contains 24 columns. Initial checks found no missing patient or appointment identifiers and no exact duplicate rows. Additional timestamp and activity-link validation is required before constructing the final process-mining event log.
