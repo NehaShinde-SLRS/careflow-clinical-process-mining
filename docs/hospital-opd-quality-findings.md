@@ -167,3 +167,26 @@ No end-before-start inconsistencies were found among records with parseable lab,
 ### Conclusion
 
 The cleaned dataset retains 62,422 records and contains 24 columns. Initial checks found no missing patient or appointment identifiers and no exact duplicate rows. Additional timestamp and activity-link validation is required before constructing the final process-mining event log.
+## 8. Data Quality Handover and Open Issues — 23 October 2026
+
+### Objective
+Record the remaining data quality issues that need attention before the HospitalOPD dataset is used to construct the process-mining event log.
+
+### Issues Requiring Follow-Up
+
+1. **Missing prescription timestamps:** Investigate records with missing prescription start or end timestamps.
+2. **Prescription timestamp inconsistencies:** Review records where the prescription end timestamp occurs before the start timestamp.
+3. **Lab end timestamp formats:** Investigate unusual lab end values that could not be parsed using the current timestamp format.
+4. **Activity relationships:** Validate how prescription, lab, imaging, and pharmacy events are linked to appointments.
+5. **Case identifier:** Confirm the appointment-level case identifier before constructing the event log.
+
+### Handover Requirements
+
+- Preserve the original HospitalOPD dataset.
+- Keep the cleaned dataset separate from the original.
+- Record any cleaning decisions and unresolved issues.
+- Coordinate with the team member responsible for data cleaning when clarification is required.
+- Complete validation before finalizing the event-log mapping.
+
+### Current Status
+The cleaned dataset has been received from Member 2. The remaining issues listed above require investigation or confirmation before the final event log is prepared.
