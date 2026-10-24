@@ -18,8 +18,6 @@ These values are from the initial dataset analysis.
 
 ## 3. Event Log Structure
 
-The process-mining event log should contain the following fields:
-
 | Field | Purpose |
 |---|---|
 | Case_ID | Identifies the process instance being analyzed |
@@ -31,11 +29,11 @@ The process-mining event log should contain the following fields:
 
 | Activity | Candidate timestamp column |
 |---|---|
-| Appointment | appointment_start_datetime |
-| Prescription | prescription_start_datetime |
-| Lab | lab_start_datetime |
-| Imaging | imaging_start_datetime |
-| Pharmacy | pharmacy_start_datetime |
+| Appointment | `appointment_start_datetime` |
+| Prescription | `prescription_start_datetime` |
+| Lab | `lab_start_datetime` |
+| Imaging | `imaging_start_datetime` |
+| Pharmacy | `pharmacy_start_datetime` |
 
 These are candidate mappings and must be validated during data preparation.
 
@@ -60,21 +58,27 @@ Missing timestamps must not be invented. Records should be handled according to 
 
 1. Confirm the case ID and event ID rules with the team.
 2. Validate timestamps and repeated records.
-3. Create and
-   ## Case Identifier Assessment — 24 October 2026
+3. Construct a candidate event log using the validated activity and timestamp mappings.
+4. Validate the candidate event log before using it for process mining.
 
-### Objective
+## 8. Case Identifier Assessment — 24 October 2026
+
+### 8.1 Objective
+
 Identify a suitable case identifier for constructing the HospitalOPD event log.
 
-### Candidate Case Identifier
+### 8.2 Candidate Case Identifier
+
 The `appointment_id` field is a candidate for the case identifier because the dataset contains 49,912 unique appointments and 39,442 unique patients.
 
-### Reasons for Considering Appointment ID
+### 8.3 Reasons for Considering Appointment ID
+
 - One patient may have multiple appointments.
 - The dataset assessment found no appointments linked to multiple patients.
 - An appointment-level case identifier can help organize clinical activities associated with each appointment.
 
-### Validation Required
+### 8.4 Validation Required
+
 Before finalizing the case identifier:
 
 1. Confirm that each clinical activity can be linked to the correct appointment.
@@ -83,8 +87,10 @@ Before finalizing the case identifier:
 4. Investigate missing or inconsistent timestamps.
 5. Confirm the case identifier with the project team.
 
-### Current Status
+### 8.5 Current Status
+
 The appointment ID is a proposed case identifier, not yet a finalized decision. It will be confirmed after validating the relationships between appointments and clinical activities.
 
-### Expected Outcome
+### 8.6 Expected Outcome
+
 A documented candidate case identifier to guide the construction and validation of the CareFlow process-mining event log.
