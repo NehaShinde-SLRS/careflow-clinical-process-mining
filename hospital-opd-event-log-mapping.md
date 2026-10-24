@@ -61,3 +61,30 @@ Missing timestamps must not be invented. Records should be handled according to 
 1. Confirm the case ID and event ID rules with the team.
 2. Validate timestamps and repeated records.
 3. Create and
+   ## Case Identifier Assessment — 24 October 2026
+
+### Objective
+Identify a suitable case identifier for constructing the HospitalOPD event log.
+
+### Candidate Case Identifier
+The `appointment_id` field is a candidate for the case identifier because the dataset contains 49,912 unique appointments and 39,442 unique patients.
+
+### Reasons for Considering Appointment ID
+- One patient may have multiple appointments.
+- The dataset assessment found no appointments linked to multiple patients.
+- An appointment-level case identifier can help organize clinical activities associated with each appointment.
+
+### Validation Required
+Before finalizing the case identifier:
+
+1. Confirm that each clinical activity can be linked to the correct appointment.
+2. Check for missing appointment identifiers in activity records.
+3. Verify that events belonging to the same appointment can be ordered using their timestamps.
+4. Investigate missing or inconsistent timestamps.
+5. Confirm the case identifier with the project team.
+
+### Current Status
+The appointment ID is a proposed case identifier, not yet a finalized decision. It will be confirmed after validating the relationships between appointments and clinical activities.
+
+### Expected Outcome
+A documented candidate case identifier to guide the construction and validation of the CareFlow process-mining event log.
