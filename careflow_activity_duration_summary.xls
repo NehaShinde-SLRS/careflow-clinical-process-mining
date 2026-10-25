@@ -1,0 +1,5 @@
+activity,records_with_both_timestamps,negative_duration_records,valid_duration_records,average_duration_minutes,median_duration_minutes
+Prescription,62409,52,62357,10.91,0.0
+Lab,13327,0,13327,468.74,125.0
+Imaging,5513,0,5513,96.68,3.0
+Pharmacy,302,0,302,5.36,1.0

@@ -1,0 +1,5 @@
+activity,records_with_both_timestamps,zero_duration_records,negative_duration_records,over_24_hours,over_7_days
+Prescription,62409,41514,52,65,21
+Lab,13327,1,0,732,51
+Imaging,5513,561,0,26,9
+Pharmacy,302,143,0,0,0
