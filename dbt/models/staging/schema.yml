@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_hospital_opd
+    description: "Cleaned and typed staging model for CareFlow OPD patient encounters."
+    columns:
+      - name: record_no
+        description: "Source sequential record number."
+        tests:
+          - not_null
+          - unique
+
+      - name: appointment_id
+        description: "Encounter key / visit identifier."
+        tests:
+          - not_null
+
+      - name: patient_id
+        description: "Patient unique identifier."
+        tests:
+          - not_null
+
+      - name: appointment_start_time
+        description: "Appointment check-in timestamp."
+        tests:
+          - not_null
+
+      - name: flow_code
+        description: "Clinical pathway code."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5, 6, 7]
+              quote: false

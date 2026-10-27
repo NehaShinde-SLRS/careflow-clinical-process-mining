@@ -7,10 +7,10 @@
 --   All queries are written in BigQuery Standard SQL.
 --
 -- Target table:
---   `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+--   `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 --
 -- IMPORTANT — Before running:
---   Replace YOUR_GCP_PROJECT_ID with your actual GCP project ID.
+--   Replace careflow-clinical-process-m with your actual GCP project ID.
 --   All column names below are CONFIRMED from inspect_dataset.py on 2026-10-22.
 --   No placeholder names remain.
 --
@@ -79,7 +79,7 @@ SELECT
     ELSE 'FAIL — row count mismatch'
   END              AS check_result
 FROM
-  `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`;
+  `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`;
 
 
 -- =============================================================================
@@ -102,7 +102,7 @@ SELECT
   COUNTIF(patient_id IS NULL)                             AS null_or_empty_count,
   COUNT(*)                                                AS total_rows,
   ROUND(COUNTIF(patient_id IS NULL) * 100.0 / COUNT(*), 2) AS null_pct
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -111,7 +111,7 @@ SELECT
   COUNTIF(appointment_id IS NULL),
   COUNT(*),
   ROUND(COUNTIF(appointment_id IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -120,7 +120,7 @@ SELECT
   COUNTIF(flow_name IS NULL OR TRIM(flow_name) = ''),
   COUNT(*),
   ROUND(COUNTIF(flow_name IS NULL OR TRIM(flow_name) = '') * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -129,7 +129,7 @@ SELECT
   COUNTIF(flow_code IS NULL),
   COUNT(*),
   ROUND(COUNTIF(flow_code IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -138,7 +138,7 @@ SELECT
   COUNTIF(appointment_start_datetime IS NULL),
   COUNT(*),
   ROUND(COUNTIF(appointment_start_datetime IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -147,7 +147,7 @@ SELECT
   COUNTIF(prescription_start_datetime IS NULL),
   COUNT(*),
   ROUND(COUNTIF(prescription_start_datetime IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -156,7 +156,7 @@ SELECT
   COUNTIF(lab_start_datetime IS NULL),
   COUNT(*),
   ROUND(COUNTIF(lab_start_datetime IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -165,7 +165,7 @@ SELECT
   COUNTIF(imaging_start_datetime IS NULL),
   COUNT(*),
   ROUND(COUNTIF(imaging_start_datetime IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -174,7 +174,7 @@ SELECT
   COUNTIF(pharmacy_start_datetime IS NULL),
   COUNT(*),
   ROUND(COUNTIF(pharmacy_start_datetime IS NULL) * 100.0 / COUNT(*), 2)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 ORDER BY
   null_pct DESC;
@@ -200,7 +200,7 @@ SELECT
   COUNTIF(appointment_start_datetime IS NULL)                         AS null_count,
   MIN(appointment_start_datetime)                                     AS min_value,
   MAX(appointment_start_datetime)                                     AS max_value
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -212,7 +212,7 @@ SELECT
   COUNTIF(prescription_start_datetime IS NULL),
   MIN(prescription_start_datetime),
   MAX(prescription_start_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -224,7 +224,7 @@ SELECT
   COUNTIF(prescription_end_datetime IS NULL),
   MIN(prescription_end_datetime),
   MAX(prescription_end_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -236,7 +236,7 @@ SELECT
   COUNTIF(lab_start_datetime IS NULL),
   MIN(lab_start_datetime),
   MAX(lab_start_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -248,7 +248,7 @@ SELECT
   COUNTIF(lab_end_datetime IS NULL),
   MIN(lab_end_datetime),
   MAX(lab_end_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -260,7 +260,7 @@ SELECT
   COUNTIF(imaging_start_datetime IS NULL),
   MIN(imaging_start_datetime),
   MAX(imaging_start_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -272,7 +272,7 @@ SELECT
   COUNTIF(imaging_end_datetime IS NULL),
   MIN(imaging_end_datetime),
   MAX(imaging_end_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -284,7 +284,7 @@ SELECT
   COUNTIF(pharmacy_start_datetime IS NULL),
   MIN(pharmacy_start_datetime),
   MAX(pharmacy_start_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
@@ -296,7 +296,7 @@ SELECT
   COUNTIF(pharmacy_end_datetime IS NULL),
   MIN(pharmacy_end_datetime),
   MAX(pharmacy_end_datetime)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 ORDER BY
   out_of_range_count DESC;
@@ -340,7 +340,7 @@ WITH row_duplicates AS (
         pharmacy_sale_line_id,
         flow_code
     ) AS occurrence_count
-  FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+  FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 )
 SELECT
   COUNTIF(occurrence_count > 1)  AS rows_in_duplicate_groups,
@@ -370,7 +370,7 @@ SELECT
   flow_name,
   COUNT(*) AS occurrence_count
 FROM
-  `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+  `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 GROUP BY
   appointment_id,
   flow_name
@@ -409,7 +409,7 @@ LIMIT 50;
 SELECT
   'prescription_end_before_start'                        AS violation_type,
   COUNT(*)                                               AS violated_ordering_count
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   prescription_end_datetime IS NOT NULL
   AND prescription_start_datetime IS NOT NULL
@@ -420,7 +420,7 @@ UNION ALL
 SELECT
   'lab_end_before_start',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   lab_end_datetime IS NOT NULL
   AND lab_start_datetime IS NOT NULL
@@ -431,7 +431,7 @@ UNION ALL
 SELECT
   'imaging_end_before_start',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   imaging_end_datetime IS NOT NULL
   AND imaging_start_datetime IS NOT NULL
@@ -442,7 +442,7 @@ UNION ALL
 SELECT
   'pharmacy_end_before_start',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   pharmacy_end_datetime IS NOT NULL
   AND pharmacy_start_datetime IS NOT NULL
@@ -454,7 +454,7 @@ UNION ALL
 SELECT
   'prescription_before_appointment',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   prescription_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -465,7 +465,7 @@ UNION ALL
 SELECT
   'lab_before_appointment',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   lab_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -476,7 +476,7 @@ UNION ALL
 SELECT
   'imaging_before_appointment',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   imaging_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -487,7 +487,7 @@ UNION ALL
 SELECT
   'pharmacy_before_appointment',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   pharmacy_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -499,7 +499,7 @@ UNION ALL
 SELECT
   'pharmacy_before_prescription',
   COUNT(*)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   pharmacy_start_datetime IS NOT NULL
   AND prescription_start_datetime IS NOT NULL
@@ -531,7 +531,7 @@ SELECT
     AND appointment_id IS NULL
   )                                                       AS rows_missing_all_case_ids,
   COUNT(*)                                                AS total_rows
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`;
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`;
 
 
 -- =============================================================================
@@ -558,7 +558,7 @@ SELECT
     END)                                AS cases_with_no_timestamps_at_all,
   COUNT(DISTINCT appointment_id)        AS total_distinct_appointments,
   COUNT(DISTINCT patient_id)            AS total_distinct_patients
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`;
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`;
 
 
 -- =============================================================================
@@ -577,7 +577,7 @@ SELECT
   flow_code                                                           AS activity_code,
   COUNT(*)                                                            AS row_count,
   ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2)                  AS pct_of_total
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 GROUP BY
   flow_name,
   flow_code
@@ -601,7 +601,7 @@ WITH appt_event_counts AS (
   SELECT
     appointment_id,
     COUNT(*) AS event_count
-  FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+  FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
   GROUP BY appointment_id
 )
 SELECT
@@ -620,7 +620,7 @@ WITH patient_event_counts AS (
   SELECT
     patient_id,
     COUNT(*) AS event_count
-  FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+  FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
   GROUP BY patient_id
 )
 SELECT
@@ -658,7 +658,7 @@ SELECT
     prescription_start_datetime, appointment_start_datetime, MINUTE) < 0) AS negative_wait,
   COUNTIF(TIMESTAMP_DIFF(
     prescription_start_datetime, appointment_start_datetime, MINUTE) > 480) AS over_8hr
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   prescription_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -673,7 +673,7 @@ SELECT
   ROUND(AVG(TIMESTAMP_DIFF(lab_start_datetime, appointment_start_datetime, MINUTE)), 1),
   COUNTIF(TIMESTAMP_DIFF(lab_start_datetime, appointment_start_datetime, MINUTE) < 0),
   COUNTIF(TIMESTAMP_DIFF(lab_start_datetime, appointment_start_datetime, MINUTE) > 480)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   lab_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -688,7 +688,7 @@ SELECT
   ROUND(AVG(TIMESTAMP_DIFF(imaging_start_datetime, appointment_start_datetime, MINUTE)), 1),
   COUNTIF(TIMESTAMP_DIFF(imaging_start_datetime, appointment_start_datetime, MINUTE) < 0),
   COUNTIF(TIMESTAMP_DIFF(imaging_start_datetime, appointment_start_datetime, MINUTE) > 480)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   imaging_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -703,7 +703,7 @@ SELECT
   ROUND(AVG(TIMESTAMP_DIFF(pharmacy_start_datetime, appointment_start_datetime, MINUTE)), 1),
   COUNTIF(TIMESTAMP_DIFF(pharmacy_start_datetime, appointment_start_datetime, MINUTE) < 0),
   COUNTIF(TIMESTAMP_DIFF(pharmacy_start_datetime, appointment_start_datetime, MINUTE) > 480)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   pharmacy_start_datetime IS NOT NULL
   AND appointment_start_datetime IS NOT NULL
@@ -718,7 +718,7 @@ SELECT
   ROUND(AVG(TIMESTAMP_DIFF(pharmacy_start_datetime, prescription_start_datetime, MINUTE)), 1),
   COUNTIF(TIMESTAMP_DIFF(pharmacy_start_datetime, prescription_start_datetime, MINUTE) < 0),
   COUNTIF(TIMESTAMP_DIFF(pharmacy_start_datetime, prescription_start_datetime, MINUTE) > 480)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 WHERE
   pharmacy_start_datetime IS NOT NULL
   AND prescription_start_datetime IS NOT NULL
@@ -757,7 +757,7 @@ SELECT
     AND pharmacy_start_datetime IS NOT NULL
   )                                        AS both_prescription_and_pharmacy,
   COUNT(*)                                 AS total_rows
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`;
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`;
 
 
 -- =============================================================================
@@ -774,53 +774,53 @@ FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`;
 --   would be unexpected and may indicate a load schema mismatch.
 -- =============================================================================
 
-SELECT 'record_no'                   AS col, COUNTIF(record_no IS NULL)                   AS null_count, COUNT(*) AS total, CASE WHEN COUNTIF(record_no IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END AS status FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'record_no'                   AS col, COUNTIF(record_no IS NULL)                   AS null_count, COUNT(*) AS total, CASE WHEN COUNTIF(record_no IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END AS status FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'patient_id',                       COUNTIF(patient_id IS NULL),                       COUNT(*), CASE WHEN COUNTIF(patient_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'patient_id',                       COUNTIF(patient_id IS NULL),                       COUNT(*), CASE WHEN COUNTIF(patient_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'appointment_id',                   COUNTIF(appointment_id IS NULL),                   COUNT(*), CASE WHEN COUNTIF(appointment_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'appointment_id',                   COUNTIF(appointment_id IS NULL),                   COUNT(*), CASE WHEN COUNTIF(appointment_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'appointment_start_datetime',       COUNTIF(appointment_start_datetime IS NULL),       COUNT(*), CASE WHEN COUNTIF(appointment_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'appointment_start_datetime',       COUNTIF(appointment_start_datetime IS NULL),       COUNT(*), CASE WHEN COUNTIF(appointment_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'prescription_doctor_id',           COUNTIF(prescription_doctor_id IS NULL),           COUNT(*), CASE WHEN COUNTIF(prescription_doctor_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'prescription_doctor_id',           COUNTIF(prescription_doctor_id IS NULL),           COUNT(*), CASE WHEN COUNTIF(prescription_doctor_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'prescription_doctor_name',         COUNTIF(prescription_doctor_name IS NULL),         COUNT(*), CASE WHEN COUNTIF(prescription_doctor_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'prescription_doctor_name',         COUNTIF(prescription_doctor_name IS NULL),         COUNT(*), CASE WHEN COUNTIF(prescription_doctor_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'prescription_order_id',            COUNTIF(prescription_order_id IS NULL),            COUNT(*), CASE WHEN COUNTIF(prescription_order_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'prescription_order_id',            COUNTIF(prescription_order_id IS NULL),            COUNT(*), CASE WHEN COUNTIF(prescription_order_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'prescription_start_datetime',      COUNTIF(prescription_start_datetime IS NULL),      COUNT(*), CASE WHEN COUNTIF(prescription_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'prescription_start_datetime',      COUNTIF(prescription_start_datetime IS NULL),      COUNT(*), CASE WHEN COUNTIF(prescription_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'prescription_end_datetime',        COUNTIF(prescription_end_datetime IS NULL),        COUNT(*), CASE WHEN COUNTIF(prescription_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'prescription_end_datetime',        COUNTIF(prescription_end_datetime IS NULL),        COUNT(*), CASE WHEN COUNTIF(prescription_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'lab_id',                           COUNTIF(lab_id IS NULL),                           COUNT(*), CASE WHEN COUNTIF(lab_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'lab_id',                           COUNTIF(lab_id IS NULL),                           COUNT(*), CASE WHEN COUNTIF(lab_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'lab_name',                         COUNTIF(lab_name IS NULL),                         COUNT(*), CASE WHEN COUNTIF(lab_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'lab_name',                         COUNTIF(lab_name IS NULL),                         COUNT(*), CASE WHEN COUNTIF(lab_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'lab_start_datetime',               COUNTIF(lab_start_datetime IS NULL),               COUNT(*), CASE WHEN COUNTIF(lab_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'lab_start_datetime',               COUNTIF(lab_start_datetime IS NULL),               COUNT(*), CASE WHEN COUNTIF(lab_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'lab_end_datetime',                 COUNTIF(lab_end_datetime IS NULL),                 COUNT(*), CASE WHEN COUNTIF(lab_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'lab_end_datetime',                 COUNTIF(lab_end_datetime IS NULL),                 COUNT(*), CASE WHEN COUNTIF(lab_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'imaging_request_id',               COUNTIF(imaging_request_id IS NULL),               COUNT(*), CASE WHEN COUNTIF(imaging_request_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'imaging_request_id',               COUNTIF(imaging_request_id IS NULL),               COUNT(*), CASE WHEN COUNTIF(imaging_request_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'imaging_result_id',                COUNTIF(imaging_result_id IS NULL),                COUNT(*), CASE WHEN COUNTIF(imaging_result_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'imaging_result_id',                COUNTIF(imaging_result_id IS NULL),                COUNT(*), CASE WHEN COUNTIF(imaging_result_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'imaging_name',                     COUNTIF(imaging_name IS NULL),                     COUNT(*), CASE WHEN COUNTIF(imaging_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'imaging_name',                     COUNTIF(imaging_name IS NULL),                     COUNT(*), CASE WHEN COUNTIF(imaging_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'imaging_start_datetime',           COUNTIF(imaging_start_datetime IS NULL),           COUNT(*), CASE WHEN COUNTIF(imaging_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'imaging_start_datetime',           COUNTIF(imaging_start_datetime IS NULL),           COUNT(*), CASE WHEN COUNTIF(imaging_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'imaging_end_datetime',             COUNTIF(imaging_end_datetime IS NULL),             COUNT(*), CASE WHEN COUNTIF(imaging_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'imaging_end_datetime',             COUNTIF(imaging_end_datetime IS NULL),             COUNT(*), CASE WHEN COUNTIF(imaging_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'pharmacy_sale_line_id',            COUNTIF(pharmacy_sale_line_id IS NULL),            COUNT(*), CASE WHEN COUNTIF(pharmacy_sale_line_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'pharmacy_sale_line_id',            COUNTIF(pharmacy_sale_line_id IS NULL),            COUNT(*), CASE WHEN COUNTIF(pharmacy_sale_line_id IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'medicine_name',                    COUNTIF(medicine_name IS NULL),                    COUNT(*), CASE WHEN COUNTIF(medicine_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'medicine_name',                    COUNTIF(medicine_name IS NULL),                    COUNT(*), CASE WHEN COUNTIF(medicine_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'pharmacy_start_datetime',          COUNTIF(pharmacy_start_datetime IS NULL),          COUNT(*), CASE WHEN COUNTIF(pharmacy_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'pharmacy_start_datetime',          COUNTIF(pharmacy_start_datetime IS NULL),          COUNT(*), CASE WHEN COUNTIF(pharmacy_start_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'pharmacy_end_datetime',            COUNTIF(pharmacy_end_datetime IS NULL),            COUNT(*), CASE WHEN COUNTIF(pharmacy_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'pharmacy_end_datetime',            COUNTIF(pharmacy_end_datetime IS NULL),            COUNT(*), CASE WHEN COUNTIF(pharmacy_end_datetime IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'flow_code',                        COUNTIF(flow_code IS NULL),                        COUNT(*), CASE WHEN COUNTIF(flow_code IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'flow_code',                        COUNTIF(flow_code IS NULL),                        COUNT(*), CASE WHEN COUNTIF(flow_code IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 UNION ALL
-SELECT 'flow_name',                        COUNTIF(flow_name IS NULL),                        COUNT(*), CASE WHEN COUNTIF(flow_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+SELECT 'flow_name',                        COUNTIF(flow_name IS NULL),                        COUNT(*), CASE WHEN COUNTIF(flow_name IS NULL) = COUNT(*) THEN 'FULLY NULL' ELSE 'OK' END FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 ORDER BY null_count DESC;
 
@@ -835,69 +835,69 @@ ORDER BY null_count DESC;
 SELECT
   'total_rows'                                             AS metric,
   CAST(COUNT(*) AS STRING)                                 AS value
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'distinct_appointments',
   CAST(COUNT(DISTINCT appointment_id) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'distinct_patients',
   CAST(COUNT(DISTINCT patient_id) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'distinct_flow_names',
   CAST(COUNT(DISTINCT flow_name) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'rows_missing_appointment_start',
   CAST(COUNTIF(appointment_start_datetime IS NULL) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'rows_missing_flow_name',
   CAST(COUNTIF(flow_name IS NULL OR TRIM(flow_name) = '') AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'rows_missing_prescription_start  [flagged]',
   CAST(COUNTIF(prescription_start_datetime IS NULL) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'appointments_with_lab',
   CAST(COUNT(DISTINCT CASE WHEN lab_id IS NOT NULL THEN appointment_id END) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'appointments_with_imaging',
   CAST(COUNT(DISTINCT CASE WHEN imaging_request_id IS NOT NULL THEN appointment_id END) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 UNION ALL
 
 SELECT
   'appointments_with_pharmacy',
   CAST(COUNT(DISTINCT CASE WHEN pharmacy_sale_line_id IS NOT NULL THEN appointment_id END) AS STRING)
-FROM `YOUR_GCP_PROJECT_ID.careflow_opd.hospital_opd_cleaned`
+FROM `careflow-clinical-process-m.careflow_opd.hospital_opd_cleaned`
 
 ORDER BY metric;

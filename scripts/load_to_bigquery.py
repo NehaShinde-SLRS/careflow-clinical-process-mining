@@ -56,7 +56,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # ---------------------------------------------------------------------------
 
 # Your Google Cloud project ID (e.g., "my-project-12345")
-GCP_PROJECT_ID = os.environ.get("CAREFLOW_GCP_PROJECT", "YOUR_GCP_PROJECT_ID")
+GCP_PROJECT_ID = os.environ.get("CAREFLOW_GCP_PROJECT", "careflow-clinical-process-m")
 
 # BigQuery dataset name (must already exist or be created in the Console)
 BQ_DATASET_ID  = "careflow_opd"
@@ -217,7 +217,7 @@ def check_prerequisites() -> bool:
         all_ok = False
 
     # 2. Project ID
-    if GCP_PROJECT_ID == "YOUR_GCP_PROJECT_ID" or not GCP_PROJECT_ID:
+    if not GCP_PROJECT_ID:
         print("  [FAIL] GCP_PROJECT_ID is not set.")
         print("    Set the CAREFLOW_GCP_PROJECT environment variable or edit this script.")
         all_ok = False

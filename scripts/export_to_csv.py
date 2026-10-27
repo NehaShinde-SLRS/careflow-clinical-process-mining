@@ -42,6 +42,13 @@ import sys
 import hashlib
 from pathlib import Path
 import warnings
+import pandas as pd
+
+# Reconfigure stdout/stderr for UTF-8 in Windows consoles
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -58,6 +65,28 @@ EXPECTED_ROWS = 62_422
 EXPECTED_COLS = 25
 
 SEPARATOR = "=" * 72
+
+ID_FLOAT_COLUMNS = [
+    "lab_id",
+    "imaging_request_id",
+    "imaging_result_id",
+    "pharmacy_sale_line_id",
+]
+
+
+def clean_whole_number_id(val) -> str:
+    """
+    Converts values ending in '.0' to integer-form strings only when confirmed
+    to be whole-number IDs. Preserves null values, empty strings, and leading zeros.
+    """
+    if pd.isna(val) or val is None or val == "":
+        return ""
+    s = str(val).strip()
+    if s.endswith(".0"):
+        base = s[:-2]
+        if base.isdigit():
+            return base
+    return s
 
 
 def section(title: str) -> None:
@@ -149,8 +178,23 @@ def main() -> None:
             print("  Overwriting with a fresh export to ensure byte-for-byte consistency.")
         else:
             print("  Row count mismatch — replacing with fresh export.")
+
+        backup_csv = TARGET_CSV.with_suffix(".csv.bak")
+        import shutil
+        shutil.copy2(TARGET_CSV, backup_csv)
+        print(f"  [BACKUP] Created backup of existing CSV: {backup_csv}")
     else:
         print(f"  Target CSV does not exist. Will create: {TARGET_CSV}")
+
+    # ------------------------------------------------------------------
+    # 2b. Format whole-number ID columns
+    # ------------------------------------------------------------------
+    section("2b. Formatting Whole-Number ID Columns")
+    for col in ID_FLOAT_COLUMNS:
+        if col in df.columns:
+            before_dot_zero = (df[col].astype(str).str.endswith(".0")).sum()
+            df[col] = df[col].apply(clean_whole_number_id)
+            print(f"  {col:<25}: normalized {before_dot_zero:,} values ending in '.0'")
 
     # ------------------------------------------------------------------
     # 3. Export to CSV

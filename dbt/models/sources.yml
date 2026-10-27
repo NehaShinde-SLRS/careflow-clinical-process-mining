@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: careflow_raw
+    database: "{{ env_var('CAREFLOW_GCP_PROJECT', 'careflow-clinical-process-m') }}"
+    schema: careflow_opd
+    tables:
+      - name: hospital_opd_cleaned
+        description: "Raw ingested cleaned outpatient records from HospitalOPD dataset (62,422 rows, 24 columns)."
+        columns:
+          - name: record_no
+            description: "Source sequential record number."
+          - name: patient_id
+            description: "Patient unique identifier."
+          - name: appointment_id
+            description: "Outpatient encounter identifier."
+          - name: appointment_start_datetime
+            description: "Appointment check-in/registration timestamp."
+          - name: flow_code
+            description: "Patient pathway flow code (1-7)."
+          - name: flow_name
+            description: "Patient pathway flow label."
