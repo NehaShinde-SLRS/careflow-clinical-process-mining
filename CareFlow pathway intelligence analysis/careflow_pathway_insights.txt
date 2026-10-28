@@ -1,0 +1,32 @@
+CAREFLOW PATHWAY INTELLIGENCE — DAY 7
+================================================
+
+Appointments represented: 49,912
+Events analyzed: 112,517
+Activity types: 5
+Distinct transition types: 20
+Distinct pathway patterns: 103
+
+TOP 5 RECORDED TRANSITIONS
+------------------------------
+Appointment Started -> Prescription Started: 47,939 transitions
+Prescription Started -> Lab Started: 5,296 transitions
+Prescription Started -> Imaging Started: 2,975 transitions
+Imaging Started -> Prescription Started: 1,664 transitions
+Appointment Started -> Imaging Started: 1,600 transitions
+
+TOP 5 RECORDED PATHWAYS
+------------------------------
+39,203 appointments (78.54%): Appointment Started -> Prescription Started
+4,334 appointments (8.68%): Appointment Started -> Prescription Started -> Lab Started
+2,217 appointments (4.44%): Appointment Started -> Prescription Started -> Imaging Started
+1,216 appointments (2.44%): Appointment Started -> Imaging Started -> Prescription Started
+555 appointments (1.11%): Appointment Started -> Prescription Started -> Imaging Started -> Lab Started
+
+LIMITATIONS
+------------------------------
+Transitions are derived from recorded timestamps.
+Equal timestamps can make event ordering ambiguous.
+A frequent transition does not establish a clinical bottleneck.
+Recorded durations do not necessarily represent waiting time.
+Results describe the available data and do not prove causation.
