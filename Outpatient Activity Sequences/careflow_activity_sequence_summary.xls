@@ -1,0 +1,31 @@
+sequence_pattern,appointment_count,percentage_of_appointments
+Appointment Started -> Prescription Started,39203,78.54
+Appointment Started -> Prescription Started -> Lab Started,4334,8.68
+Appointment Started -> Prescription Started -> Imaging Started,2217,4.44
+Appointment Started -> Imaging Started -> Prescription Started,1216,2.44
+Appointment Started -> Prescription Started -> Imaging Started -> Lab Started,555,1.11
+Appointment Started -> Prescription Started -> Prescription Started,430,0.86
+Appointment Started -> Prescription Started -> Lab Started -> Imaging Started,396,0.79
+Appointment Started -> Imaging Started -> Prescription Started -> Lab Started,288,0.58
+Appointment Started -> Lab Started -> Prescription Started,260,0.52
+Imaging Started -> Appointment Started -> Prescription Started,222,0.44
+Appointment Started -> Prescription Started -> Pharmacy Started,90,0.18
+Appointment Started -> Prescription Started -> Lab Started -> Lab Started,75,0.15
+Lab Started -> Appointment Started -> Prescription Started,71,0.14
+Imaging Started -> Appointment Started -> Prescription Started -> Lab Started,47,0.09
+Appointment Started -> Lab Started -> Prescription Started -> Imaging Started,36,0.07
+Appointment Started -> Prescription Started -> Imaging Started -> Imaging Started,35,0.07
+Appointment Started -> Lab Started -> Imaging Started -> Prescription Started,31,0.06
+Appointment Started -> Prescription Started -> Prescription Started -> Imaging Started,28,0.06
+Appointment Started -> Prescription Started -> Imaging Started -> Prescription Started,27,0.05
+Appointment Started -> Prescription Started -> Lab Started -> Prescription Started,27,0.05
+Lab Started -> Appointment Started -> Imaging Started -> Prescription Started,24,0.05
+Appointment Started -> Prescription Started -> Prescription Started -> Lab Started,23,0.05
+Appointment Started -> Imaging Started -> Imaging Started -> Prescription Started,16,0.03
+Appointment Started -> Imaging Started -> Lab Started -> Prescription Started,15,0.03
+Lab Started -> Appointment Started -> Prescription Started -> Imaging Started,15,0.03
+Appointment Started -> Prescription Started -> Pharmacy Started -> Lab Started,12,0.02
+Appointment Started -> Imaging Started -> Prescription Started -> Prescription Started,12,0.02
+Appointment Started -> Prescription Started -> Lab Started -> Lab Started -> Imaging Started,11,0.02
+Appointment Started,11,0.02
+Appointment Started -> Prescription Started -> Prescription Started -> Prescription Started,10,0.02

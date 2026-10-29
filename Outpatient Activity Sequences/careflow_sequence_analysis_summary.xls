@@ -1,0 +1,6 @@
+metric,value
+Appointments with recorded events,49912
+Total recorded events,112517
+Distinct activity sequence patterns,103
+Sequence patterns meeting minimum group size,30
+Minimum group size for exported sequences,10

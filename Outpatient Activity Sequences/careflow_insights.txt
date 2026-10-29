@@ -1,0 +1,18 @@
+CareFlow - Outpatient Activity Sequence Analysis
+
+Appointments with recorded events: 49912
+Total recorded events: 112517
+Distinct sequence patterns: 103
+
+Top 5 sequence patterns meeting the minimum group size:
+- Appointment Started -> Prescription Started: 39203 appointments (78.54%)
+- Appointment Started -> Prescription Started -> Lab Started: 4334 appointments (8.68%)
+- Appointment Started -> Prescription Started -> Imaging Started: 2217 appointments (4.44%)
+- Appointment Started -> Imaging Started -> Prescription Started: 1216 appointments (2.44%)
+- Appointment Started -> Prescription Started -> Imaging Started -> Lab Started: 555 appointments (1.11%)
+
+Limitations:
+- Sequences reflect available timestamps, not necessarily every clinical activity.
+- Equal timestamps may not establish the true order of activities.
+- Longer sequences do not automatically indicate longer or worse care.
+- Small groups are excluded from the sequence summary export.
