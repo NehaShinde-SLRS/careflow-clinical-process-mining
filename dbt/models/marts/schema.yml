@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: dim_clinical_providers
+    description: "Dimension model for attending physicians/providers in CareFlow OPD."
+    columns:
+      - name: doctor_id
+        description: "Primary key for clinical provider."
+        tests:
+          - not_null
+          - unique
+
+      - name: doctor_name
+        description: "Clinician full name."
+        tests:
+          - not_null
+
+  - name: fct_clinical_encounters
+    description: "Encounter-level fact table representing individual outpatient visits (grain: appointment_id)."
+    columns:
+      - name: appointment_id
+        description: "Encounter unique visit identifier (Primary Key)."
+        tests:
+          - not_null
+          - unique
+
+      - name: patient_id
+        description: "Longitudinal patient identifier."
+        tests:
+          - not_null
+
+      - name: doctor_id
+        description: "Attending doctor identifier (Foreign Key)."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_clinical_providers')
+              field: doctor_id
+
+      - name: appointment_start_time
+        description: "Encounter registration / arrival timestamp."
+        tests:
+          - not_null
+
+      - name: flow_code
+        description: "Clinical pathway code (1-7)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5, 6, 7]
+              quote: false
+
+  - name: fct_process_transitions
+    description: "Stage-to-stage process transitions within each outpatient encounter."
+    columns:
+      - name: transition_id
+        description: "Surrogate primary key for encounter transition step."
+        tests:
+          - not_null
+          - unique
+
+      - name: appointment_id
+        description: "Encounter visit key (Foreign Key)."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fct_clinical_encounters')
+              field: appointment_id
+
+      - name: from_timestamp
+        description: "Start timestamp of the origin stage."
+        tests:
+          - not_null
+
+      - name: to_timestamp
+        description: "Timestamp of the destination stage."
+        tests:
+          - not_null
