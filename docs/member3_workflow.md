@@ -1,10 +1,10 @@
 # Member 3 — BigQuery, SQL, and dbt Workflow
 
 **Project:** CareFlow — Clinical Pathway Process Mining  
-**Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Transformations, Marts, KPI Views)  
+**Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation)  
 **Milestone Deadline:** 8 November 2026 (Final Project Handover)  
-**Current Progress:** **100% Verified Completion for Day 1, Day 2, and Day 3**  
-**Last Updated:** 30 October 2026  
+**Current Progress:** **100% Verified Completion for Days 1 through 5**  
+**Last Updated:** 31 October 2026  
 
 ---
 
@@ -14,6 +14,8 @@
 - Ingest cleaned data into Google BigQuery with explicit schemas and duplicate-load safeguards.
 - Execute SQL data-quality validation and waiting-time analysis queries in BigQuery.
 - Build and maintain modular dbt staging models, dimensional marts, and automated schema test suites.
+- Review dbt models for DAG dependencies, query latency, storage efficiency, and referential integrity.
+- Profile and validate the process mining event log across completeness, sequence validity, and concurrency.
 - Author and deploy analytical KPI views in BigQuery for process mining and throughput monitoring.
 - Provide a verified event log and BigQuery star-schema marts for Member 4 (Process Mining & Dashboarding).
 
@@ -81,6 +83,23 @@ The 6 analytical KPI views from [`sql/kpi_analysis_views.sql`](file:///c:/Users/
 5. `vw_kpi_patient_throughput`: Arrival volumes grouped by year, month, day of week, and hour.
 6. `vw_kpi_process_bottlenecks`: Handoff durations, bottleneck rates (>2h), and negative transition inversions.
 
+### F. Day 4 dbt Model Review & Performance Benchmarking (100% Verified)
+- Comprehensive review documented in [`docs/day4_completion_report.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day4_completion_report.md).
+- Verified modular, non-circular DAG architecture with parallel materialization capabilities.
+- BigQuery storage verified: Dim (7.5 KB), Encounters (10.12 MB), Transitions (13.52 MB).
+- Benchmarked query latencies: $<15$ milliseconds slot time with sub-second execution across all analytical queries.
+- Referential integrity confirmed: 0 orphan records across all parent-child entity joins.
+
+### G. Day 5 Event Log In-Depth Validation (100% Verified)
+- Comprehensive audit documented in [`docs/day5_event_log_validation_report.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day5_event_log_validation_report.md).
+- Evaluated all 193,443 event rows across 8 quality dimensions:
+  - 0 missing values across all 14 columns.
+  - 0 exact duplicate records.
+  - 14,481 concurrent multi-order diagnostic instances validated as clinically legitimate parallelism.
+  - 100% valid ISO-8601 timestamps spanning 819 operational days.
+  - 1,183 events (0.61%) tagged with `timestamp_anomaly_flag = 1`.
+  - 100% provenance traceability to source table row sequence IDs.
+
 ---
 
 ## 3. How to Execute the Pipeline
@@ -130,6 +149,8 @@ print('KPI Views deployed successfully.')
 | **dbt Dimensional Marts** | Required | **COMPLETED** | 3 native tables created (`dim_clinical_providers`, `fct_clinical_encounters`, `fct_process_transitions`) |
 | **dbt Automated Schema Tests** | Required | **COMPLETED** | **24 tests passed in BigQuery (`PASS=24, ERROR=0`)** |
 | **BigQuery KPI Views** | Required | **COMPLETED** | **6 views deployed and verified in `careflow_opd`** |
-| **Handover to Member 4** | Ready | **COMPLETED** | Marts and KPI views ready for BI dashboards and PM4Py |
+| **Day 4 dbt Model Review** | Required | **COMPLETED** | Documented in `docs/day4_completion_report.md` |
+| **Day 5 Event Log Validation** | Required | **COMPLETED** | Documented in `docs/day5_event_log_validation_report.md` |
+| **Handover to Member 4** | Ready | **COMPLETED** | Marts, KPI views, and validated event log ready for PM4Py & BI dashboards |
 
-**Overall Progress:** **100% COMPLETED** (Foundational and Day 3 Analytical milestones achieved ahead of 8 November 2026).
+**Overall Progress:** **100% COMPLETED** (Days 1 through 5 milestones fully achieved ahead of the 8 November 2026 deadline).

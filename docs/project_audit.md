@@ -1,6 +1,6 @@
 # CareFlow Clinical Process Mining — Project Audit Report
 
-**Audit Date:** 28–30 October 2026 (Consolidated Audit & Day 3 Marts / KPI Completion)  
+**Audit Date:** 28–31 October 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review & Event Log Validation)  
 **Auditor Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation)  
 **Project Milestone Deadline:** 8 November 2026 (Final Project Handover)  
 **Target GCP Project:** `careflow-clinical-process-m`  
@@ -17,26 +17,30 @@ This consolidated project audit serves as the official single source of truth fo
   - Staging view `stg_hospital_opd`: BigQuery SQL view (62,422 rows, 24 columns).
   - Event log `data/careflow_event_log.csv`: 193,443 rows, 14 columns, 49,912 cases, 1,183 anomaly flags.
 - **Day 3 Dimensional Marts Layer (100% Complete & Verified in BigQuery):**
-  - `dim_clinical_providers`: 98 unique attending clinicians (Table, 98 rows).
-  - `fct_clinical_encounters`: 49,912 visit encounters with service utilization flags, waiting durations, cycle times, and anomaly tags (Table, 49,912 rows).
-  - `fct_process_transitions`: 121,832 stage-to-stage process transitions ordered by canonical clinical pathway sequence (Table, 121,832 rows).
+  - `dim_clinical_providers`: 98 unique attending clinicians (Table, 98 rows, 7.5 KB).
+  - `fct_clinical_encounters`: 49,912 visit encounters with service utilization flags, waiting durations, cycle times, and anomaly tags (Table, 49,912 rows, 10.12 MB).
+  - `fct_process_transitions`: 121,832 stage-to-stage process transitions ordered by canonical clinical pathway sequence (Table, 121,832 rows, 13.52 MB).
 - **Automated dbt Data Tests (24/24 Passed - 100% Pass Rate):**
   - 7 staging tests + 17 marts schema tests covering primary key uniqueness, not-null constraints, domain accepted values, and foreign-key referential integrity across all models.
 - **Analytical KPI Views (6 Views Deployed in BigQuery):**
   - `vw_kpi_total_encounters`, `vw_kpi_activity_counts`, `vw_kpi_waiting_times`, `vw_kpi_process_cycle_time`, `vw_kpi_patient_throughput`, `vw_kpi_process_bottlenecks`.
+- **Day 4 dbt Model & Performance Review (100% Verified):**
+  - Decoupled modular DAG, 0 orphan foreign key records, sub-second query performance ($<15$ ms slot time), fully documented in `docs/day4_completion_report.md`.
+- **Day 5 Event Log Validation (100% Verified):**
+  - Exhaustive 8-dimension audit of `data/careflow_event_log.csv`: 0 nulls across all 14 columns, 0 exact duplicates, 100% valid timestamps (819 days), 100% source record traceability, fully documented in `docs/day5_event_log_validation_report.md`.
 - **Downstream Handover (Next Steps for 8 November 2026 Deadline):**
-  - Final integration and dashboard connection with Member 4 (Process Mining & Dashboarding).
+  - Integration with Member 4 (Process Mining & Dashboarding): BI dashboard connection and process discovery import.
 
 ---
 
-## 2. Live Cloud Verification Evidence (Executed 30 October 2026)
+## 2. Live Cloud Verification Evidence (Executed 30–31 October 2026)
 
 ### A. BigQuery Marts Table Verification (Live Query Evidence)
 - **Dataset Reference:** `careflow-clinical-process-m.careflow_opd`
 - **Objects Summary:**
-  - `dim_clinical_providers`: Native Table, **98 rows**, 8 columns. Primary key `doctor_id` is 100% unique (0 nulls).
-  - `fct_clinical_encounters`: Native Table, **49,912 rows**, 33 columns. Primary key `appointment_id` is 100% unique (0 nulls). Referential integrity to `dim_clinical_providers` confirmed (**0 orphan records**).
-  - `fct_process_transitions`: Native Table, **121,832 rows**, 11 columns. Primary key `transition_id` is 100% unique (0 nulls). Referential integrity to `fct_clinical_encounters` confirmed (**0 orphan records**).
+  - `dim_clinical_providers`: Native Table, **98 rows**, 8 columns, 7.5 KB. Primary key `doctor_id` is 100% unique (0 nulls). Query benchmark slot latency: 8 ms.
+  - `fct_clinical_encounters`: Native Table, **49,912 rows**, 33 columns, 10.12 MB. Primary key `appointment_id` is 100% unique (0 nulls). Referential integrity to `dim_clinical_providers` confirmed (**0 orphan records**). Query benchmark slot latency: 15 ms.
+  - `fct_process_transitions`: Native Table, **121,832 rows**, 11 columns, 13.52 MB. Primary key `transition_id` is 100% unique (0 nulls). Referential integrity to `fct_clinical_encounters` confirmed (**0 orphan records**). Query benchmark slot latency: 8 ms.
   - `hospital_opd_cleaned`: Native Table, **62,422 rows**, 24 columns.
   - `stg_hospital_opd`: SQL View, **62,422 rows**, 24 columns.
 
@@ -60,6 +64,16 @@ The 6 analytical KPI views from `sql/kpi_analysis_views.sql` were deployed and q
 5. `vw_kpi_patient_throughput`: Peak patient arrival surges occur on Monday mornings (06:00–07:00: 2,640 arrivals), Wednesday mornings (06:00: 1,140 arrivals), and Friday afternoons (13:00: 1,080 arrivals).
 6. `vw_kpi_process_bottlenecks`: By ordering transitions using the canonical clinical sequence, 3,493 negative transitions were quantified (including 1,547 encounters where imaging was taken before consultation end). Departmental bottleneck detected: **62.96% of laboratory tests** (3,019 orders) take $>2$ hours to complete (mean duration: 930.5 minutes).
 
+### D. Event Log In-Depth Validation Scorecard (`data/careflow_event_log.csv`)
+- **File Metrics:** 34,658,350 bytes (33.05 MB), 193,443 event rows, 14 columns.
+- **Completeness:** 0 nulls across all 14 columns (100% complete).
+- **Exact Deduplication:** 0 exact duplicate records across all columns.
+- **Cases & Patients:** 49,912 unique cases, 39,442 unique patients (mean: 3.88 events/case, median: 3.0, range: 2–57).
+- **Clinical Concurrency:** 14,481 instances share `(case_id, activity, timestamp)` representing multi-order simultaneous diagnostics with distinct `service_id` and `source_record_no` entries.
+- **Timespan:** 100% valid timestamps spanning 819 operating days (`2024-04-25 11:12:00` to `2026-07-23 16:43:00`).
+- **Anomalies Tagged:** 1,183 events (0.61%) with `timestamp_anomaly_flag = 1` (457 lab start, 293 imaging start, 273 imaging complete, 155 lab complete, 5 consultation start).
+- **Traceability:** 100% of event source records map to verified source row IDs (`record_no`) with 0 orphans.
+
 ---
 
 ## 3. Evidence-Based Security & Privacy Assessment
@@ -78,7 +92,7 @@ All untracked local files were inspected using strict read-only methods. No cred
 
 ## 4. Task Breakdown: Status Matrix
 
-### Verified Completed Tasks (Foundational & Day 3 Milestones)
+### Verified Completed Tasks (Foundational, Day 3, Day 4 & Day 5 Milestones)
 - [x] Read-only verification of original `.xls` source dataset.
 - [x] Normalized CSV export with pre-overwrite backup (`data/HospitalOPD_cleaned.csv`).
 - [x] Tabular event log generation and validation (`data/careflow_event_log.csv`, 193,443 rows).
@@ -91,6 +105,8 @@ All untracked local files were inspected using strict read-only methods. No cred
 - [x] Authoring and passing of all 24 dbt data tests (`PASS=24, ERROR=0`, 100% pass rate).
 - [x] Deployment and live querying of 6 analytical KPI views in BigQuery (`sql/kpi_analysis_views.sql`).
 - [x] Detailed completion reporting in `docs/day3_completion_report.md`.
+- [x] Day 4 dbt model review, DAG dependency analysis, and performance benchmarking (`docs/day4_completion_report.md`).
+- [x] Day 5 comprehensive event log data quality and sequence validation (`docs/day5_event_log_validation_report.md`).
 
 ### Incomplete Tasks (Roadmap to 8 November 2026 Milestone)
 - [ ] **Integration with Member 4 (Process Mining & Dashboarding):**
@@ -102,14 +118,15 @@ All untracked local files were inspected using strict read-only methods. No cred
 
 ---
 
-## 5. Conclusion & Day 3 Sign-off
+## 5. Conclusion & Days 4–5 Sign-off
 
-All Day 3 tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
+All Day 4 (dbt Model Review) and Day 5 (Event Log Validation) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
 
-The BigQuery warehouse now possesses:
-1. Cleaned, typed staging view (`stg_hospital_opd`).
-2. Robust dimensional star-schema marts (`dim_clinical_providers`, `fct_clinical_encounters`, `fct_process_transitions`).
+The warehouse now contains:
+1. Verified staging model (`stg_hospital_opd`).
+2. High-performance dimensional star-schema marts (`dim_clinical_providers`, `fct_clinical_encounters`, `fct_process_transitions`) with sub-second execution latencies.
 3. 24 passing automated data quality and referential integrity tests.
 4. 6 live analytical views serving all core process mining and throughput KPIs.
+5. Fully profiled, de-identified clinical event log (`data/careflow_event_log.csv`, 193,443 rows) ready for process discovery algorithms.
 
 The project is fully prepared for final dashboard integration and process mining analytics with Member 4 ahead of the **8 November 2026** milestone deadline.
