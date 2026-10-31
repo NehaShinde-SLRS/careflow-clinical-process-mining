@@ -1,12 +1,12 @@
 # CareFlow Clinical Process Mining — Project Audit Report
 
-**Audit Date:** 28–31 October 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review & Event Log Validation)  
-**Auditor Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation)  
-**Project Milestone Deadline:** 8 November 2026 (Final Project Handover)  
-**Target GCP Project:** `careflow-clinical-process-m`  
-**Target BigQuery Dataset:** `careflow_opd` (Region: `US`)  
+**Audit Date:** 28–31 October 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review, Event Log Validation & Day 6 Process Mining Analysis)
+**Auditor Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation, Process Mining Analytics)
+**Project Milestone Deadline:** 8 November 2026 (Final Project Handover)
+**Target GCP Project:** `careflow-clinical-process-m`
+**Target BigQuery Dataset:** `careflow_opd` (Region: `US`)
 
----
+---s
 
 ## 1. Executive Summary
 
@@ -28,6 +28,13 @@ This consolidated project audit serves as the official single source of truth fo
   - Decoupled modular DAG, 0 orphan foreign key records, sub-second query performance ($<15$ ms slot time), fully documented in `docs/day4_completion_report.md`.
 - **Day 5 Event Log Validation (100% Verified):**
   - Exhaustive 8-dimension audit of `data/careflow_event_log.csv`: 0 nulls across all 14 columns, 0 exact duplicates, 100% valid timestamps (819 days), 100% source record traceability, fully documented in `docs/day5_event_log_validation_report.md`.
+- **Day 6 Process Mining Analysis (100% Complete & Verified):**
+  - Process Discovery & DFG: 143,531 transitions across 56 unique edges; 99.16% start at Registration; 82.95% end at Consultation Completion.
+  - Process Variants: 602 unique variants across 49,912 cases; top 2 cover **82.76%** of cases; top 6 cover **90.00%**; top 18 cover **95.00%**.
+  - Bottleneck Analysis: Laboratory Turnaround Time (TAT) is the primary bottleneck at **279.3 minutes (4.65 hours)** mean duration (62.96% $>2$ hours; batched panels reach 930.5 min / 15.5 hours); clinic registration wait averages **114.9 minutes**.
+  - Rework & Loop Detection: 20,070 direct self-loops across 4,231 cases (8.48%) driven by concurrent multi-order lab tests (11,387 loops) and staggered results (8,238 loops); 3,746 multi-lab cases (7.51%).
+  - Process Conformance: **85.45% canonical happy path conformance**; 418 cases (0.84%) out-of-order diagnostic start; 1,184 cases (2.37%) pre-consultation radiology.
+  - Deliverables: Python pipeline ([`scripts/process_mining_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_mining_analysis.py)), BigQuery SQL analytics suite ([`sql/day6_process_mining_queries.sql`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/sql/day6_process_mining_queries.sql)), and detailed report ([`docs/day6_process_mining_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day6_process_mining_analysis.md)).
 - **Downstream Handover (Next Steps for 8 November 2026 Deadline):**
   - Integration with Member 4 (Process Mining & Dashboarding): BI dashboard connection and process discovery import.
 
@@ -74,6 +81,32 @@ The 6 analytical KPI views from `sql/kpi_analysis_views.sql` were deployed and q
 - **Anomalies Tagged:** 1,183 events (0.61%) with `timestamp_anomaly_flag = 1` (457 lab start, 293 imaging start, 273 imaging complete, 155 lab complete, 5 consultation start).
 - **Traceability:** 100% of event source records map to verified source row IDs (`record_no`) with 0 orphans.
 
+### E. Day 6 Process Mining Analysis Scorecard (Executed 31 October 2026)
+- **Pipeline Implementation:** [`scripts/process_mining_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_mining_analysis.py) (executed end-to-end on 193,443 events).
+- **SQL Analytics Suite:** [`sql/day6_process_mining_queries.sql`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/sql/day6_process_mining_queries.sql) (6 BigQuery Standard SQL queries, 100% syntax and dry-run verified).
+- **Comprehensive Report:** [`docs/day6_process_mining_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day6_process_mining_analysis.md).
+- **Process Discovery (DFG):**
+  - Discovered 143,531 total transitions across 56 unique transition edges.
+  - Case entry activities: `Appointment Registration` (49,494 cases, 99.16%), `Imaging Started` (282 cases, 0.56%), `Lab Test Started` (131 cases, 0.26%), `Prescription Consultation Started` (5 cases, 0.01%).
+  - Case exit activities: `Prescription Consultation Completed` (41,400 cases, 82.95%), `Lab Test Completed` (4,522 cases, 9.06%), `Imaging Completed` (2,521 cases, 5.05%), `Lab Test Started` (1,321 cases, 2.65% discharged with pending lab).
+- **Process Variants & Pareto Distribution:**
+  - Discovered 602 unique execution variants across 49,912 cases.
+  - Variant 1 (`Reg -> Consult Start -> Consult Complete`): 39,141 cases (78.42%), mean cycle time 134.7 min, median 29.0 min.
+  - Variant 2 (`Reg -> Consult -> Imaging`): 2,168 cases (4.34%), mean cycle time 450.4 min, median 57.0 min.
+  - Top 2 variants account for **82.76%**; top 6 account for **90.00%**; top 18 account for **95.00%** (classic Pareto concentration).
+- **Bottlenecks & Delays:**
+  - Laboratory Turnaround Time (Primary Bottleneck): Mean `Lab Start -> Lab Complete` duration is **279.3 minutes (4.65 hours)** (median: 81.0 min, P90: 229.5 min). Across batched panels, average lab elapsed duration reaches **930.5 minutes (15.5 hours)**. 62.96% of lab tests require $>2$ hours.
+  - Clinic Waiting Time: Mean registration-to-consultation wait is **114.9 minutes (1.9 hours)** (median: 25.0 min, P90: 91.0 min). High positive skew driven by morning peak arrivals (2,640 arrivals at 06:00–07:00 Mondays).
+  - Post-Consultation Imaging Delay: Mean delay of **419.3 minutes (7.0 hours)** from consultation completion to radiology start.
+- **Rework & Loops:**
+  - 20,070 direct self-loops observed across 4,231 cases (8.48% of all cases).
+  - Predominantly driven by concurrent laboratory test orders (11,387 loops) and sequential laboratory completions (8,238 loops).
+  - 3,746 cases (7.51%) have $>1$ laboratory test; 640 cases (1.28%) have repeated consultations; 98 cases (0.20%) have multiple imaging studies.
+- **Process Conformance:**
+  - **85.45% of cases (42,650)** strictly adhere to canonical happy path trajectories.
+  - 418 cases (0.84%) exhibit out-of-order diagnostic start prior to desk registration.
+  - 1,184 cases (2.37%) exhibit pre-consultation radiology scans.
+
 ---
 
 ## 3. Evidence-Based Security & Privacy Assessment
@@ -92,7 +125,7 @@ All untracked local files were inspected using strict read-only methods. No cred
 
 ## 4. Task Breakdown: Status Matrix
 
-### Verified Completed Tasks (Foundational, Day 3, Day 4 & Day 5 Milestones)
+### Verified Completed Tasks (Foundational, Day 3, Day 4, Day 5 & Day 6 Milestones)
 - [x] Read-only verification of original `.xls` source dataset.
 - [x] Normalized CSV export with pre-overwrite backup (`data/HospitalOPD_cleaned.csv`).
 - [x] Tabular event log generation and validation (`data/careflow_event_log.csv`, 193,443 rows).
@@ -107,6 +140,14 @@ All untracked local files were inspected using strict read-only methods. No cred
 - [x] Detailed completion reporting in `docs/day3_completion_report.md`.
 - [x] Day 4 dbt model review, DAG dependency analysis, and performance benchmarking (`docs/day4_completion_report.md`).
 - [x] Day 5 comprehensive event log data quality and sequence validation (`docs/day5_event_log_validation_report.md`).
+- [x] Day 6 Process Discovery & DFG extraction (143,531 transitions across 56 unique edges).
+- [x] Day 6 Process Variants Analysis (602 unique variants, Pareto 82.76% top 2, 90.00% top 6).
+- [x] Day 6 Bottleneck and Waiting Time Analysis (Lab TAT 279.3 min / 4.65h; Registration wait 114.9 min).
+- [x] Day 6 Rework and Loop Detection (20,070 direct self-loops across 4,231 cases; 3,746 multi-lab cases).
+- [x] Day 6 Process Conformance Analysis (85.45% canonical happy path, 0.84% out-of-order start).
+- [x] Day 6 Reusable Python analysis pipeline ([`scripts/process_mining_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_mining_analysis.py)).
+- [x] Day 6 Reusable BigQuery SQL analytics suite ([`sql/day6_process_mining_queries.sql`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/sql/day6_process_mining_queries.sql)).
+- [x] Day 6 Comprehensive Process Mining Analysis Report ([`docs/day6_process_mining_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day6_process_mining_analysis.md)).
 
 ### Incomplete Tasks (Roadmap to 8 November 2026 Milestone)
 - [ ] **Integration with Member 4 (Process Mining & Dashboarding):**
@@ -118,15 +159,16 @@ All untracked local files were inspected using strict read-only methods. No cred
 
 ---
 
-## 5. Conclusion & Days 4–5 Sign-off
+## 5. Conclusion & Days 4–6 Sign-off
 
-All Day 4 (dbt Model Review) and Day 5 (Event Log Validation) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
+All Day 4 (dbt Model Review), Day 5 (Event Log Validation), and Day 6 (Process Mining Analysis) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
 
-The warehouse now contains:
+The warehouse and analytical suite now contain:
 1. Verified staging model (`stg_hospital_opd`).
 2. High-performance dimensional star-schema marts (`dim_clinical_providers`, `fct_clinical_encounters`, `fct_process_transitions`) with sub-second execution latencies.
 3. 24 passing automated data quality and referential integrity tests.
 4. 6 live analytical views serving all core process mining and throughput KPIs.
-5. Fully profiled, de-identified clinical event log (`data/careflow_event_log.csv`, 193,443 rows) ready for process discovery algorithms.
+5. Fully profiled, de-identified clinical event log (`data/careflow_event_log.csv`, 193,443 rows).
+6. End-to-end Process Mining Analysis covering DFG discovery, 602 execution variants, Pareto distributions, bottleneck quantification, self-loops, and conformance scoring with targeted clinical recommendations.
 
-The project is fully prepared for final dashboard integration and process mining analytics with Member 4 ahead of the **8 November 2026** milestone deadline.
+The project is fully prepared for final dashboard integration and process mining handover with Member 4 ahead of the **8 November 2026** milestone deadline.

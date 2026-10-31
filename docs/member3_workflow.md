@@ -1,10 +1,10 @@
 # Member 3 — BigQuery, SQL, and dbt Workflow
 
-**Project:** CareFlow — Clinical Pathway Process Mining  
-**Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation)  
-**Milestone Deadline:** 8 November 2026 (Final Project Handover)  
-**Current Progress:** **100% Verified Completion for Days 1 through 5**  
-**Last Updated:** 31 October 2026  
+**Project:** CareFlow — Clinical Pathway Process Mining
+**Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views,Event-Log Preparation, Process Mining Analytics)
+**Milestone Deadline:** 8 November 2026 (Final Project Handover)
+**Current Progress:** **100% Verified Completion for Days 1 through 6**
+**Last Updated:** 31 October 2026
 
 ---
 
@@ -17,7 +17,8 @@
 - Review dbt models for DAG dependencies, query latency, storage efficiency, and referential integrity.
 - Profile and validate the process mining event log across completeness, sequence validity, and concurrency.
 - Author and deploy analytical KPI views in BigQuery for process mining and throughput monitoring.
-- Provide a verified event log and BigQuery star-schema marts for Member 4 (Process Mining & Dashboarding).
+- Perform clinical process mining discovery (DFG), variant mining, bottleneck quantification, rework/loop detection, and conformance scoring.
+- Provide a verified event log, BigQuery star-schema marts, and process discovery artifacts for Member 4 (Process Mining & Dashboarding).
 
 ---
 
@@ -100,6 +101,16 @@ The 6 analytical KPI views from [`sql/kpi_analysis_views.sql`](file:///c:/Users/
   - 1,183 events (0.61%) tagged with `timestamp_anomaly_flag = 1`.
   - 100% provenance traceability to source table row sequence IDs.
 
+### H. Day 6 Process Mining Analysis (100% Verified)
+- Comprehensive report documented in [`docs/day6_process_mining_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day6_process_mining_analysis.md).
+- Python analysis pipeline implemented in [`scripts/process_mining_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_mining_analysis.py).
+- BigQuery Standard SQL suite authoring & validation in [`sql/day6_process_mining_queries.sql`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/sql/day6_process_mining_queries.sql).
+- Process Discovery: Discovered 143,531 transitions across 56 unique edges; 99.16% start at `Appointment Registration`, 82.95% end at `Prescription Consultation Completed`.
+- Process Variants: 602 distinct variants across 49,912 cases; Top 2 cover **82.76%**; Top 6 cover **90.00%**; Top 18 cover **95.00%**.
+- Bottlenecks: Mean `Lab Test Started → Completed` duration is **279.3 minutes (4.65 hours)** (62.96% $>2$ hours; panel averages 930.5 min / 15.5 hours); Mean registration-to-doctor wait is **114.9 minutes**.
+- Loops: 20,070 direct self-loops across 4,231 cases (8.48%) driven by multi-order concurrent labs (11,387 loops) and staggered results (8,238 loops); 3,746 cases (7.51%) have multiple labs.
+- Conformance: **85.45% canonical happy path conformance**; 418 cases (0.84%) out-of-order diagnostic start; 1,184 cases (2.37%) pre-consultation radiology scans.
+
 ---
 
 ## 3. How to Execute the Pipeline
@@ -135,6 +146,11 @@ print('KPI Views deployed successfully.')
 "
 ```
 
+### Step 5: Execute Process Mining Analysis
+```powershell
+python scripts/process_mining_analysis.py
+```
+
 ---
 
 ## 4. Current Handover Status & Milestone Deliverables
@@ -151,6 +167,9 @@ print('KPI Views deployed successfully.')
 | **BigQuery KPI Views** | Required | **COMPLETED** | **6 views deployed and verified in `careflow_opd`** |
 | **Day 4 dbt Model Review** | Required | **COMPLETED** | Documented in `docs/day4_completion_report.md` |
 | **Day 5 Event Log Validation** | Required | **COMPLETED** | Documented in `docs/day5_event_log_validation_report.md` |
-| **Handover to Member 4** | Ready | **COMPLETED** | Marts, KPI views, and validated event log ready for PM4Py & BI dashboards |
+| **Day 6 Python Mining Script** | Required | **COMPLETED** | [`scripts/process_mining_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_mining_analysis.py) |
+| **Day 6 SQL Query Suite** | Required | **COMPLETED** | [`sql/day6_process_mining_queries.sql`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/sql/day6_process_mining_queries.sql) |
+| **Day 6 Mining Report** | Required | **COMPLETED** | Documented in [`docs/day6_process_mining_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day6_process_mining_analysis.md) |
+| **Handover to Member 4** | Ready | **COMPLETED** | Marts, KPI views, event log, and DFG/variant discoveries ready for PM4Py & BI dashboards |
 
-**Overall Progress:** **100% COMPLETED** (Days 1 through 5 milestones fully achieved ahead of the 8 November 2026 deadline).
+**Overall Progress:** **100% COMPLETED** (Days 1 through 6 milestones fully achieved ahead of the 8 November 2026 deadline).
