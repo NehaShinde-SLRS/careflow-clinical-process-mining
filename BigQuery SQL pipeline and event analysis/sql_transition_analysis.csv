@@ -1,0 +1,10 @@
+Activity_Name,Next_Activity,Transition_Count,Average_Transition_Minutes
+Appointment,Prescription,2,12.5
+Appointment,Imaging,2,20.0
+Prescription,Lab,1,15.0
+Lab,Pharmacy,1,20.0
+Appointment,Lab,1,15.0
+Lab,Prescription,1,25.0
+Imaging,Lab,1,30.0
+Prescription,Prescription,1,15.0
+Imaging,Pharmacy,1,30.0
