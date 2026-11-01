@@ -1,0 +1,25 @@
+Column Name,Data Type,Missing Values,Missing Percentage,Unique Values
+record_no,int64,0,0.0,62422
+patient_id,int64,0,0.0,39442
+appointment_id,int64,0,0.0,49912
+appointment_start_datetime,object,0,0.0,43305
+prescription_doctor_id,int64,0,0.0,98
+prescription_doctor_name,object,0,0.0,98
+prescription_order_id,int64,0,0.0,50568
+prescription_start_datetime,object,12,0.02,43384
+prescription_end_datetime,object,1,0.0,43261
+lab_id,float64,44393,71.12,17083
+lab_name,object,44393,71.12,119
+lab_start_datetime,object,44393,71.12,6414
+lab_end_datetime,object,49095,78.65,9380
+imaging_request_id,float64,56899,91.15,5360
+imaging_result_id,float64,56899,91.15,5360
+imaging_name,object,56899,91.15,38
+imaging_start_datetime,object,56899,91.15,5270
+imaging_end_datetime,object,56909,91.17,5271
+pharmacy_sale_line_id,float64,62120,99.52,262
+medicine_name,object,62120,99.52,154
+pharmacy_start_datetime,object,62120,99.52,112
+pharmacy_end_datetime,object,62120,99.52,118
+flow_code,int64,0,0.0,7
+flow_name,object,0,0.0,7
