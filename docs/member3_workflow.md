@@ -1,10 +1,10 @@
 # Member 3 — BigQuery, SQL, and dbt Workflow
 
 **Project:** CareFlow — Clinical Pathway Process Mining
-**Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views,Event-Log Preparation, Process Mining Analytics)
+**Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation, Process Mining Analytics)
 **Milestone Deadline:** 8 November 2026 (Final Project Handover)
-**Current Progress:** **100% Verified Completion for Days 1 through 6**
-**Last Updated:** 31 October 2026
+**Current Progress:** **100% Verified Completion for Days 1 through 7**
+**Last Updated:** 2 November 2026
 
 ---
 
@@ -18,6 +18,7 @@
 - Profile and validate the process mining event log across completeness, sequence validity, and concurrency.
 - Author and deploy analytical KPI views in BigQuery for process mining and throughput monitoring.
 - Perform clinical process mining discovery (DFG), variant mining, bottleneck quantification, rework/loop detection, and conformance scoring.
+- Author and maintain the production Data Dictionary, clinical domain definitions, and end-to-end Source-to-Target Mapping (STTM).
 - Provide a verified event log, BigQuery star-schema marts, and process discovery artifacts for Member 4 (Process Mining & Dashboarding).
 
 ---
@@ -111,6 +112,15 @@ The 6 analytical KPI views from [`sql/kpi_analysis_views.sql`](file:///c:/Users/
 - Loops: 20,070 direct self-loops across 4,231 cases (8.48%) driven by multi-order concurrent labs (11,387 loops) and staggered results (8,238 loops); 3,746 cases (7.51%) have multiple labs.
 - Conformance: **85.45% canonical happy path conformance**; 418 cases (0.84%) out-of-order diagnostic start; 1,184 cases (2.37%) pre-consultation radiology scans.
 
+### I. Day 7 Data Dictionary & Lineage Documentation (100% Verified)
+- Comprehensive Data Dictionary authored in [`docs/data_dictionary.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/data_dictionary.md).
+  - Exhaustively documents 11 Google Cloud BigQuery objects (146 columns) and 12 total project entities (160 columns) including the local event log (`data/careflow_event_log.csv`, 14 columns).
+  - Explicit data types, primary/foreign keys, nullability rates, clinical definitions, and sample values for all 160 entity columns.
+- End-to-end Source-to-Target Mapping (STTM) authored in [`docs/source_to_target_mapping.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/source_to_target_mapping.md).
+  - Architectural lineage Mermaid flowcharts and star-schema Entity-Relationship (ER) diagram.
+  - Column-by-column transformation rules, expressions, aggregations, and business exception handling rules across all 5 data engineering layers.
+  - Provenance traceability matrix verifying 0 orphan references, 62,262 distinct source records referenced in the event log, and 160 intra-encounter duplicate order lines consolidated during wide-to-long extraction.
+
 ---
 
 ## 3. How to Execute the Pipeline
@@ -170,6 +180,8 @@ python scripts/process_mining_analysis.py
 | **Day 6 Python Mining Script** | Required | **COMPLETED** | [`scripts/process_mining_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_mining_analysis.py) |
 | **Day 6 SQL Query Suite** | Required | **COMPLETED** | [`sql/day6_process_mining_queries.sql`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/sql/day6_process_mining_queries.sql) |
 | **Day 6 Mining Report** | Required | **COMPLETED** | Documented in [`docs/day6_process_mining_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day6_process_mining_analysis.md) |
-| **Handover to Member 4** | Ready | **COMPLETED** | Marts, KPI views, event log, and DFG/variant discoveries ready for PM4Py & BI dashboards |
+| **Day 7 Data Dictionary** | Required | **COMPLETED** | Comprehensive dictionary in [`docs/data_dictionary.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/data_dictionary.md) |
+| **Day 7 Source-to-Target Mapping** | Required | **COMPLETED** | Detailed lineage & STTM in [`docs/source_to_target_mapping.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/source_to_target_mapping.md) |
+| **Handover to Member 4** | Ready | **COMPLETED** | Marts, KPI views, event log, STTM, and data dictionary ready for PM4Py & BI dashboards |
 
-**Overall Progress:** **100% COMPLETED** (Days 1 through 6 milestones fully achieved ahead of the 8 November 2026 deadline).
+**Overall Progress:** **100% COMPLETED** (Days 1 through 7 milestones fully achieved ahead of the 8 November 2026 deadline).
