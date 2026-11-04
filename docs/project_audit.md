@@ -1,6 +1,6 @@
 # CareFlow Clinical Process Mining — Project Audit Report
 
-**Audit Date:** 28 October – 3 November 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review, Event Log Validation, Day 6 Process Mining Analysis, Day 7 Data Dictionary & Day 8 Team Integration)
+**Audit Date:** 28 October – 4 November 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review, Event Log Validation, Day 6 Process Mining Analysis, Day 7 Data Dictionary, Day 8 Team Integration & Day 9 PM4Py Process Discovery)
 **Auditor Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation, Process Mining Analytics)
 **Project Milestone Deadline:** 8 November 2026 (Final Project Handover)
 **Target GCP Project:** `careflow-clinical-process-m`
@@ -43,6 +43,10 @@ This consolidated project audit serves as the official single source of truth fo
   - Master Data Lineage ([`docs/day8_data_lineage.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_data_lineage.md)): End-to-end lineage diagram, 4-tier granularity transition matrix (62,422 $\rightarrow$ 49,912 $\rightarrow$ 98 $\rightarrow$ 121,832 $\rightarrow$ 193,443 rows), column-level lineage table, and 160-row reconciliation.
   - Team Integration Matrix ([`docs/day8_team_integration.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_team_integration.md)): Cross-member deliverable tracking, dependencies, and formal Data Contracts A, B, C, and D governing inter-member data exchange.
   - Technical Integration Audit ([`docs/day8_integration_audit.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_integration_audit.md)): 100% schema consistency verified, 0 orphan keys, sub-15ms BI query performance, 4 operational issues identified with production-ready fixes.
+- **Day 9 PM4Py Process Discovery & Model Interchange (100% Complete & Verified):**
+  - Production PM4Py Pipeline ([`scripts/pm4py_process_discovery.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/pm4py_process_discovery.py)): Algorithmic process discovery using PM4Py 2.7.23.11 on Python 3.14.7 across 193,443 events and 49,912 cases.
+  - Process Discovery Report ([`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md)): Complete documentation of Frequency DFG (56 edges), Performance DFG, Inductive Petri Net (33 places, 40 transitions, 94 arcs), Process Tree, 602 variants (Pareto Top 2 = 82.76%), and Lab TAT bottleneck quantification (279.3 min / 4.65h).
+  - Reproducible Model Interchange: 5 publication-grade PNG diagrams, Inductive Petri Net XML ([`outputs/process_mining/inductive_petri_net.pnml`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/inductive_petri_net.pnml)), Process Tree ([`outputs/process_mining/inductive_process_tree.ptml`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/inductive_process_tree.ptml)), Graphviz DOT, structured JSON summary, and compressed IEEE XES log ([`data/careflow_event_log.xes.gz`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/data/careflow_event_log.xes.gz), 5.81 MB).
 - **Downstream Handover (Next Steps for 8 November 2026 Deadline):**
   - Integration with Member 4 (Process Mining & Dashboarding): BI dashboard connection and process discovery import.
 
@@ -144,6 +148,22 @@ The 6 analytical KPI views from `sql/kpi_analysis_views.sql` were deployed and q
   - Slot query latency $<15$ ms across all 6 analytical KPI views.
   - 4 key operational integration issues identified and provided with production-ready mitigation scripts (concurrent events ordering, schema migration sync, BigQuery BI credentials, and XML XES interchange).
 
+### H. Day 9 PM4Py Process Discovery & Model Interchange Verification (Completed 4 November 2026)
+- **Pipeline Implementation:** [`scripts/pm4py_process_discovery.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/pm4py_process_discovery.py) (executed end-to-end on 193,443 events using PM4Py 2.7.23.11 on Python 3.14.7).
+- **Comprehensive Report:** [`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md).
+- **Log Quality Scorecard:** 0 nulls across 14 columns, 0 duplicate records, 0 single-event cases across 49,912 cases and 39,442 patients.
+- **Directly-Follows Graph (DFG):** 143,531 transitions across 56 unique edge types. Primary entry: `Appointment Registration` (99.16%); primary exit: `Prescription Consultation Completed` (82.95%).
+- **Inductive Miner Modeling:** Discovered Inductive Petri Net (33 places, 40 transitions, 94 arcs; initial marking: `['source']`, final marking: `['sink']`) and Inductive Process Tree.
+- **Process Variants & Pareto Distribution:** 602 unique variants. Strong Pareto concentration: Top 2 cover **82.76%**; Top 6 cover **90.00%**; Top 18 cover **95.00%**.
+- **Departmental Bottlenecks:** Confirmed Laboratory Turnaround Time (TAT) as primary bottleneck averaging **279.3 minutes (4.65 hours)** with batched panels reaching 930.5 min (15.5 hours); OPD registration wait averages **114.9 minutes**.
+- **Model Interchange Artifacts:**
+  - 5 publication-grade PNG diagrams: DFG frequency network, DFG performance bottleneck graph, Process variants Pareto curve, Departmental waiting times, Activity frequency distribution.
+  - Standard Inductive Petri Net PNML ([`outputs/process_mining/inductive_petri_net.pnml`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/inductive_petri_net.pnml), 19.1 KB).
+  - Inductive Process Tree PTML ([`outputs/process_mining/inductive_process_tree.ptml`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/inductive_process_tree.ptml), 11.3 KB).
+  - Graphviz DOT representation ([`outputs/process_mining/dfg_frequency.dot`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/dfg_frequency.dot), 5.3 KB).
+  - Compressed IEEE XML XES event log ([`data/careflow_event_log.xes.gz`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/data/careflow_event_log.xes.gz), 5.81 MB).
+  - Structured machine-readable JSON summary ([`outputs/process_mining/pm4py_discovery_summary.json`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/pm4py_discovery_summary.json), 6.3 KB).
+
 ---
 
 ## 3. Evidence-Based Security & Privacy Assessment
@@ -191,19 +211,23 @@ All untracked local files were inspected using strict read-only methods. No cred
 - [x] Day 8 End-to-End Data Lineage & Column-Level Granularity Transitions authored ([`docs/day8_data_lineage.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_data_lineage.md)).
 - [x] Day 8 Cross-Functional Team Integration Matrix & Data Contracts authored ([`docs/day8_team_integration.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_team_integration.md)).
 - [x] Day 8 Technical Integration Audit & Schema Consistency Verification authored ([`docs/day8_integration_audit.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_integration_audit.md)).
+- [x] Day 9 PM4Py Process Discovery Pipeline authored and executed ([`scripts/pm4py_process_discovery.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/pm4py_process_discovery.py)).
+- [x] Day 9 Frequency DFG, Performance DFG, Inductive Petri Net (33 places, 40 transitions, 94 arcs), and Process Tree discovery.
+- [x] Day 9 Process variants analysis and cumulative Pareto curve quantification (Top 2 variants = 82.76%; Top 6 = 90.00%; Top 18 = 95.00%).
+- [x] Day 9 Publication-grade visualization suite and standard interchange artifacts generated (5 PNGs, PNML model, PTML tree, DOT graph, compressed IEEE XES log, structured JSON summary).
+- [x] Day 9 Comprehensive PM4Py Process Discovery Report authored ([`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md)).
 
-### Incomplete Tasks (Roadmap to 8 November 2026 Milestone — Day 9 Final Handover)
-- [ ] **Day 9 Final Handover & Team Integration Sign-Off (Member 4 BI Dashboard & PM4Py Integration):**
+### Incomplete Tasks (Roadmap to 8 November 2026 Milestone — Final Project Handover)
+- [ ] **Final Project Handover & Team Integration Sign-Off (Member 4 Integration):**
   - Verify BI tool connection (Looker Studio / Tableau) to the 6 deployed BigQuery KPI views.
-  - Coordinate process mining script imports using `careflow_event_log.csv` and `stg_hospital_opd`.
-  - Provide XML-based XES export via `pm4py.write_xes` if standard XML interchange is required by Member 4.
-  - Final project delivery archive and team sign-off ahead of 8 November 2026.
+  - Coordinate process mining visual modeling using `careflow_event_log.xes.gz` and `careflow_event_log.csv`.
+  - Final project delivery archive and team sign-off ahead of the 8 November 2026 deadline.
 
 ---
 
-## 5. Conclusion & Days 4–8 Sign-off
+## 5. Conclusion & Days 4–9 Sign-off
 
-All Day 4 (dbt Model Review), Day 5 (Event Log Validation), Day 6 (Process Mining Analysis), Day 7 (Data Dictionary & Documentation), and Day 8 (Team Integration & Architecture) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
+All Day 4 (dbt Model Review), Day 5 (Event Log Validation), Day 6 (Process Mining Analysis), Day 7 (Data Dictionary & Documentation), Day 8 (Team Integration & Architecture), and Day 9 (PM4Py Process Discovery & Integration) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
 
 The warehouse, analytical suite, and engineering documentation now contain:
 1. Verified staging model (`stg_hospital_opd`).
@@ -215,5 +239,6 @@ The warehouse, analytical suite, and engineering documentation now contain:
 7. Production-grade Data Dictionary documenting 11 BigQuery warehouse objects (146 columns) and 12 total project entities (160 columns) including the local event log, types, nullability, clinical ontology, and pathway definitions.
 8. End-to-end Source-to-Target Mapping (STTM) with architectural lineage flowcharts, star-schema ER diagram, transformation expressions, exception handling rules, and deterministic 1:1 provenance traceability.
 9. Enterprise System Architecture, Master Data Lineage, Team Integration Matrix (with formal Data Contracts A-D), and Technical Integration Audit Report establishing full operational readiness for Member 4.
+10. Complete PM4Py algorithmic process discovery suite featuring Frequency & Performance DFGs, Inductive Petri Net & Process Tree models, 5 publication-grade PNG diagrams, standard PNML/PTML interchange files, and compressed IEEE XML XES event log (`data/careflow_event_log.xes.gz`, 5.81 MB).
 
 The project is fully prepared for final dashboard integration and process mining handover with Member 4 ahead of the **8 November 2026** milestone deadline.

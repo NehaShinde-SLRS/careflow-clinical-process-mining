@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "project": "CareFlow Clinical Process Mining",
+    "milestone": "Day 9 PM4Py Process Discovery & Integration",
+    "date": "2026-11-04",
+    "pm4py_version": "2.7.23.11",
+    "total_events": 193443,
+    "total_cases": 49912,
+    "total_patients": 39442
+  },
+  "quality_metrics": {
+    "total_events": 193443,
+    "total_cases": 49912,
+    "total_patients": 39442,
+    "total_missing_values": 0,
+    "exact_duplicates": 0,
+    "single_event_cases": 0,
+    "events_per_case_mean": 3.875681198910082,
+    "events_per_case_median": 3.0,
+    "events_per_case_max": 57,
+    "anomaly_events_count": 1183,
+    "anomaly_cases_count": 418,
+    "timestamp_min": "2024-04-25 11:12:00+00:00",
+    "timestamp_max": "2026-07-23 16:43:00+00:00"
+  },
+  "discovery_metrics": {
+    "dfg_edge_count": 56,
+    "total_transitions": 143531,
+    "start_activities": {
+      "Appointment Registration": 49494,
+      "Lab Test Started": 131,
+      "Imaging Started": 282,
+      "Prescription Consultation Started": 5
+    },
+    "end_activities": {
+      "Prescription Consultation Completed": 41400,
+      "Lab Test Started": 1321,
+      "Imaging Completed": 2521,
+      "Lab Test Completed": 4522,
+      "Prescription Consultation Started": 46,
+      "Pharmacy Dispensation Completed": 95,
+      "Imaging Started": 7
+    },
+    "total_variants": 602,
+    "pareto": {
+      "top_variants_50pct": 1,
+      "top_variants_80pct": 2,
+      "top_variants_90pct": 6,
+      "top_variants_95pct": 18
+    }
+  },
+  "top_5_variants": [
+    {
+      "rank": 1,
+      "case_count": 39141,
+      "share_pct": 78.42,
+      "cumulative_share_pct": 78.42,
+      "event_length": 3,
+      "trace": "Appointment Registration -> Prescription Consultation Started -> Prescription Consultation Completed"
+    },
+    {
+      "rank": 2,
+      "case_count": 2168,
+      "share_pct": 4.34,
+      "cumulative_share_pct": 82.76,
+      "event_length": 5,
+      "trace": "Appointment Registration -> Prescription Consultation Started -> Prescription Consultation Completed -> Imaging Started -> Imaging Completed"
+    },
+    {
+      "rank": 3,
+      "case_count": 1341,
+      "share_pct": 2.69,
+      "cumulative_share_pct": 85.45,
+      "event_length": 5,
+      "trace": "Appointment Registration -> Prescription Consultation Started -> Prescription Consultation Completed -> Lab Test Started -> Lab Test Completed"
+    },
+    {
+      "rank": 4,
+      "case_count": 1184,
+      "share_pct": 2.37,
+      "cumulative_share_pct": 87.82,
+      "event_length": 5,
+      "trace": "Appointment Registration -> Imaging Started -> Imaging Completed -> Prescription Consultation Started -> Prescription Consultation Completed"
+    },
+    {
+      "rank": 5,
+      "case_count": 879,
+      "share_pct": 1.76,
+      "cumulative_share_pct": 89.58,
+      "event_length": 7,
+      "trace": "Appointment Registration -> Prescription Consultation Started -> Prescription Consultation Completed -> Lab Test Started -> Lab Test Started -> Lab Test Completed -> Lab Test Completed"
+    }
+  ],
+  "key_clinical_stages": [
+    {
+      "label": "Registration to Consultation Wait",
+      "source": "Appointment Registration",
+      "target": "Prescription Consultation Started",
+      "frequency": 47882,
+      "mean_min": 114.9291382983167,
+      "median_min": 25.0,
+      "mean_hours": 1.9154856383052783,
+      "is_bottleneck": false
+    },
+    {
+      "label": "Consultation Active Duration",
+      "source": "Prescription Consultation Started",
+      "target": "Prescription Consultation Completed",
+      "frequency": 50338,
+      "mean_min": 4.634133259168024,
+      "median_min": 0.0,
+      "mean_hours": 0.07723555431946708,
+      "is_bottleneck": false
+    },
+    {
+      "label": "Consultation to Lab Order Dispatch",
+      "source": "Prescription Consultation Completed",
+      "target": "Lab Test Started",
+      "frequency": 5242,
+      "mean_min": 33.84528805799313,
+      "median_min": 18.0,
+      "mean_hours": 0.5640881342998855,
+      "is_bottleneck": false
+    },
+    {
+      "label": "Laboratory Turnaround Time (TAT)",
+      "source": "Lab Test Started",
+      "target": "Lab Test Completed",
+      "frequency": 4396,
+      "mean_min": 279.27320291173794,
+      "median_min": 81.0,
+      "mean_hours": 4.654553381862299,
+      "is_bottleneck": true
+    },
+    {
+      "label": "Consultation to Imaging Dispatch",
+      "source": "Prescription Consultation Completed",
+      "target": "Imaging Started",
+      "frequency": 2904,
+      "mean_min": 419.2579201101928,
+      "median_min": 34.0,
+      "mean_hours": 6.9876320018365465,
+      "is_bottleneck": true
+    },
+    {
+      "label": "Imaging Turnaround Time (TAT)",
+      "source": "Imaging Started",
+      "target": "Imaging Completed",
+      "frequency": 5267,
+      "mean_min": 56.629010822099865,
+      "median_min": 3.0,
+      "mean_hours": 0.9438168470349977,
+      "is_bottleneck": false
+    },
+    {
+      "label": "Consultation to Pharmacy Dispatch",
+      "source": "Prescription Consultation Completed",
+      "target": "Pharmacy Dispensation Started",
+      "frequency": 106,
+      "mean_min": 8.68867924528302,
+      "median_min": 6.0,
+      "mean_hours": 0.14481132075471698,
+      "is_bottleneck": false
+    },
+    {
+      "label": "Pharmacy Dispensation Duration",
+      "source": "Pharmacy Dispensation Started",
+      "target": "Pharmacy Dispensation Completed",
+      "frequency": 112,
+      "mean_min": 6.919642857142858,
+      "median_min": 0.0,
+      "mean_hours": 0.11532738095238096,
+      "is_bottleneck": false
+    }
+  ],
+  "artifacts_generated": [
+    "outputs/process_mining/dfg_frequency_graph.png",
+    "outputs/process_mining/dfg_performance_graph.png",
+    "outputs/process_mining/process_variants_pareto.png",
+    "outputs/process_mining/bottleneck_waiting_times.png",
+    "outputs/process_mining/activity_frequency_distribution.png",
+    "outputs/process_mining/inductive_petri_net.pnml",
+    "outputs/process_mining/inductive_process_tree.ptml",
+    "outputs/process_mining/dfg_frequency.dot",
+    "outputs/process_mining/pm4py_discovery_summary.json",
+    "data/careflow_event_log.xes.gz"
+  ]
+}
