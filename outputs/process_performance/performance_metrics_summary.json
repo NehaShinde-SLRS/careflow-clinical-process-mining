@@ -1,0 +1,623 @@
+{
+  "metadata": {
+    "project": "CareFlow Clinical Process Mining",
+    "milestone": "Day 10 Clinical Process Performance Analysis",
+    "date": "2026-11-05",
+    "total_encounters": 49912,
+    "operational_window_days": 819
+  },
+  "overall_journey_duration": {
+    "count": 49912,
+    "mean_min": 294.7200072126943,
+    "std_min": 5362.930369328168,
+    "median_min": 39.0,
+    "min_min": 1.0,
+    "max_min": 695645.0,
+    "p25_min": 17.0,
+    "p75_min": 82.0,
+    "p90_min": 198.0,
+    "p95_min": 353.0,
+    "p99_min": 4856.12999999999,
+    "mean_hours": 4.912000120211572,
+    "median_hours": 0.65,
+    "p90_hours": 3.3,
+    "p95_hours": 5.883333333333334,
+    "p99_hours": 80.93549999999983
+  },
+  "duration_tiers": [
+    {
+      "tier": "Ultra-Fast (<= 30 min)",
+      "count": 20906,
+      "percentage": 41.88571886520276
+    },
+    {
+      "tier": "Standard OPD (30 - 120 min)",
+      "count": 20914,
+      "percentage": 41.90174707485174
+    },
+    {
+      "tier": "Delayed (120 - 240 min / 2-4 hrs)",
+      "count": 4091,
+      "percentage": 8.196425709248278
+    },
+    {
+      "tier": "Prolonged (240 - 480 min / 4-8 hrs)",
+      "count": 1982,
+      "percentage": 3.9709889405353422
+    },
+    {
+      "tier": "Severe Outlier (> 480 min / > 8 hrs)",
+      "count": 2019,
+      "percentage": 4.045119410161885
+    }
+  ],
+  "pathway_performance": [
+    {
+      "flow_code": 1,
+      "flow_name": "Appointment \u2192 Prescription",
+      "case_count": 39667,
+      "share_pct": 79.47387401827216,
+      "mean_min": 170.73131318224216,
+      "median_min": 29.0,
+      "p90_min": 97.0,
+      "mean_service_min": 6.923765346509693,
+      "mean_wait_min": 163.81042176116168,
+      "mean_pce_pct": 10.118179190698386
+    },
+    {
+      "flow_code": 2,
+      "flow_name": "Appointment \u2192 Prescription \u2192 Lab",
+      "case_count": 4825,
+      "share_pct": 9.667013944542395,
+      "mean_min": 803.8472538860103,
+      "median_min": 173.0,
+      "p90_min": 1509.6000000000004,
+      "mean_service_min": 732.6841450777202,
+      "mean_wait_min": 76.72455958549223,
+      "mean_pce_pct": 57.975364203598176
+    },
+    {
+      "flow_code": 3,
+      "flow_name": "Appointment \u2192 Prescription \u2192 Imaging",
+      "case_count": 3785,
+      "share_pct": 7.583346690174706,
+      "mean_min": 467.0435931307794,
+      "median_min": 82.0,
+      "p90_min": 277.0,
+      "mean_service_min": 106.46948480845442,
+      "mean_wait_min": 360.576750330251,
+      "mean_pce_pct": 10.666716911413141
+    },
+    {
+      "flow_code": 4,
+      "flow_name": "Appointment \u2192 Prescription \u2192 Pharmacy",
+      "case_count": 93,
+      "share_pct": 0.18632793716941817,
+      "mean_min": 51.1505376344086,
+      "median_min": 32.0,
+      "p90_min": 93.59999999999998,
+      "mean_service_min": 15.96774193548387,
+      "mean_wait_min": 35.18279569892473,
+      "mean_pce_pct": 11.84698464384595
+    },
+    {
+      "flow_code": 5,
+      "flow_name": "Appointment \u2192 Prescription \u2192 Lab + Imaging",
+      "case_count": 1527,
+      "share_pct": 3.059384516749479,
+      "mean_min": 1492.102815979044,
+      "median_min": 284.0,
+      "p90_min": 3570.4,
+      "mean_service_min": 883.4708578912902,
+      "mean_wait_min": 618.4695481335953,
+      "mean_pce_pct": 51.74590065121724
+    },
+    {
+      "flow_code": 6,
+      "flow_name": "Appointment \u2192 Prescription \u2192 Lab + Pharmacy",
+      "case_count": 14,
+      "share_pct": 0.028049366885718865,
+      "mean_min": 558.6428571428571,
+      "median_min": 88.5,
+      "p90_min": 732.3000000000008,
+      "mean_service_min": 515.1428571428571,
+      "mean_wait_min": 43.5,
+      "mean_pce_pct": 43.69171742229936
+    },
+    {
+      "flow_code": 7,
+      "flow_name": "Appointment \u2192 Prescription \u2192 Imaging + Pharmacy",
+      "case_count": 1,
+      "share_pct": 0.0020035262061227762,
+      "mean_min": 324.0,
+      "median_min": 324.0,
+      "p90_min": 324.0,
+      "mean_service_min": 4.0,
+      "mean_wait_min": 320.0,
+      "mean_pce_pct": 1.2345679012345678
+    }
+  ],
+  "service_vs_waiting_decomposition": {
+    "mean_service_min": 111.608310626703,
+    "median_service_min": 0.0,
+    "p90_service_min": 50.0,
+    "mean_waiting_min": 183.95277688732168,
+    "median_waiting_min": 32.0,
+    "p90_waiting_min": 113.0,
+    "mean_pce_pct": 16.072149948461146,
+    "median_pce_pct": 0.0,
+    "service_wait_ratio": 0.6067226193332622
+  },
+  "department_service_durations": [
+    {
+      "department": "Consultation",
+      "utilizing_cases": 17156,
+      "mean_min": 67.27990207507578,
+      "median_min": 4.0,
+      "p90_min": 22.0
+    },
+    {
+      "department": "Laboratory",
+      "utilizing_cases": 4795,
+      "mean_min": 930.5057351407717,
+      "median_min": 164.0,
+      "p90_min": 3085.6000000000004
+    },
+    {
+      "department": "Imaging",
+      "utilizing_cases": 4804,
+      "mean_min": 122.7853871773522,
+      "median_min": 3.0,
+      "p90_min": 10.0
+    },
+    {
+      "department": "Pharmacy",
+      "utilizing_cases": 59,
+      "mean_min": 22.610169491525422,
+      "median_min": 1.0,
+      "p90_min": 3.0
+    }
+  ],
+  "department_bottlenecks": [
+    {
+      "stage": "Laboratory Turnaround Time (TAT)",
+      "department": "Clinical Lab",
+      "volume": 4795,
+      "mean_min": 930.5057351407717,
+      "median_min": 164.0,
+      "p90_min": 3085.6000000000004,
+      "threshold_min": 120.0,
+      "delayed_count": 3019,
+      "delayed_pct": 62.96141814389989,
+      "severe_outlier_count": 971,
+      "severe_outlier_pct": 20.25026068821689,
+      "is_primary_bottleneck": true
+    },
+    {
+      "stage": "Post-Consultation Imaging Queue",
+      "department": "Radiology Queue",
+      "volume": 3284,
+      "mean_min": 595.1638246041413,
+      "median_min": 39.0,
+      "p90_min": 183.40000000000055,
+      "threshold_min": 120.0,
+      "delayed_count": 417,
+      "delayed_pct": 12.697929354445797,
+      "severe_outlier_count": 229,
+      "severe_outlier_pct": 6.973203410475031,
+      "is_primary_bottleneck": false
+    },
+    {
+      "stage": "Registration to Consultation Wait",
+      "department": "OPD Front Desk",
+      "volume": 49896,
+      "mean_min": 129.83431537598204,
+      "median_min": 27.0,
+      "p90_min": 98.0,
+      "threshold_min": 120.0,
+      "delayed_count": 3461,
+      "delayed_pct": 6.936427769761103,
+      "severe_outlier_count": 445,
+      "severe_outlier_pct": 0.8918550585217252,
+      "is_primary_bottleneck": false
+    },
+    {
+      "stage": "Imaging Procedure TAT",
+      "department": "Radiology Service",
+      "volume": 5315,
+      "mean_min": 110.98043273753528,
+      "median_min": 3.0,
+      "p90_min": 10.0,
+      "threshold_min": 60.0,
+      "delayed_count": 109,
+      "delayed_pct": 2.050799623706491,
+      "severe_outlier_count": 55,
+      "severe_outlier_pct": 1.03480714957667,
+      "is_primary_bottleneck": false
+    },
+    {
+      "stage": "Consultation to Pharmacy Queue",
+      "department": "Pharmacy Queue",
+      "volume": 108,
+      "mean_min": 9.694444444444445,
+      "median_min": 6.0,
+      "p90_min": 15.899999999999991,
+      "threshold_min": 30.0,
+      "delayed_count": 6,
+      "delayed_pct": 5.555555555555555,
+      "severe_outlier_count": 0,
+      "severe_outlier_pct": 0.0,
+      "is_primary_bottleneck": false
+    }
+  ],
+  "delay_patterns": {
+    "day_of_week": [
+      {
+        "arrival_dayofweek": "Monday",
+        "arrival_count": 10043,
+        "mean_duration_min": 336.1237677984666,
+        "median_duration_min": 47.0,
+        "mean_wait_min": 209.82535099073982,
+        "severe_delay_count": 823,
+        "severe_delay_pct": 8.194762521159015
+      },
+      {
+        "arrival_dayofweek": "Tuesday",
+        "arrival_count": 8542,
+        "mean_duration_min": 256.96675251697496,
+        "median_duration_min": 41.0,
+        "mean_wait_min": 143.04214469679232,
+        "severe_delay_count": 763,
+        "severe_delay_pct": 8.932334347927885
+      },
+      {
+        "arrival_dayofweek": "Wednesday",
+        "arrival_count": 7828,
+        "mean_duration_min": 274.55224833929486,
+        "median_duration_min": 37.0,
+        "mean_wait_min": 267.22521716913644,
+        "severe_delay_count": 584,
+        "severe_delay_pct": 7.46039856923863
+      },
+      {
+        "arrival_dayofweek": "Thursday",
+        "arrival_count": 7542,
+        "mean_duration_min": 228.52784407319012,
+        "median_duration_min": 37.0,
+        "mean_wait_min": 103.78546804561124,
+        "severe_delay_count": 555,
+        "severe_delay_pct": 7.3587907716786
+      },
+      {
+        "arrival_dayofweek": "Friday",
+        "arrival_count": 7316,
+        "mean_duration_min": 288.6660743575724,
+        "median_duration_min": 39.0,
+        "mean_wait_min": 131.96951886276653,
+        "severe_delay_count": 584,
+        "severe_delay_pct": 7.982504100601422
+      },
+      {
+        "arrival_dayofweek": "Saturday",
+        "arrival_count": 6431,
+        "mean_duration_min": 451.8738920852123,
+        "median_duration_min": 40.0,
+        "mean_wait_min": 302.68045405069194,
+        "severe_delay_count": 626,
+        "severe_delay_pct": 9.734100450940755
+      },
+      {
+        "arrival_dayofweek": "Sunday",
+        "arrival_count": 2210,
+        "mean_duration_min": 112.5475113122172,
+        "median_duration_min": 16.0,
+        "mean_wait_min": 29.725339366515836,
+        "severe_delay_count": 66,
+        "severe_delay_pct": 2.986425339366516
+      }
+    ],
+    "hourly_patterns": [
+      {
+        "arrival_hour": 0,
+        "arrival_count": 35,
+        "mean_duration_min": 57.2,
+        "mean_wait_min": 48.22857142857143,
+        "p90_wait_min": 71.60000000000001
+      },
+      {
+        "arrival_hour": 1,
+        "arrival_count": 38,
+        "mean_duration_min": 2271.184210526316,
+        "mean_wait_min": 67.94736842105263,
+        "p90_wait_min": 141.30000000000035
+      },
+      {
+        "arrival_hour": 2,
+        "arrival_count": 77,
+        "mean_duration_min": 222.5974025974026,
+        "mean_wait_min": 184.7012987012987,
+        "p90_wait_min": 225.20000000000007
+      },
+      {
+        "arrival_hour": 3,
+        "arrival_count": 877,
+        "mean_duration_min": 258.2531356898518,
+        "mean_wait_min": 138.4891676168757,
+        "p90_wait_min": 258.4
+      },
+      {
+        "arrival_hour": 4,
+        "arrival_count": 2327,
+        "mean_duration_min": 197.00472711645895,
+        "mean_wait_min": 78.62440911044263,
+        "p90_wait_min": 152.4000000000001
+      },
+      {
+        "arrival_hour": 5,
+        "arrival_count": 5233,
+        "mean_duration_min": 322.4494553793235,
+        "mean_wait_min": 194.29581502006496,
+        "p90_wait_min": 111.0
+      },
+      {
+        "arrival_hour": 6,
+        "arrival_count": 6211,
+        "mean_duration_min": 279.4115279343101,
+        "mean_wait_min": 168.77523748188696,
+        "p90_wait_min": 104.0
+      },
+      {
+        "arrival_hour": 7,
+        "arrival_count": 5177,
+        "mean_duration_min": 177.89414718949197,
+        "mean_wait_min": 73.6059493915395,
+        "p90_wait_min": 105.0
+      },
+      {
+        "arrival_hour": 8,
+        "arrival_count": 1744,
+        "mean_duration_min": 277.76032110091745,
+        "mean_wait_min": 149.2672018348624,
+        "p90_wait_min": 124.40000000000009
+      },
+      {
+        "arrival_hour": 9,
+        "arrival_count": 1904,
+        "mean_duration_min": 417.88235294117646,
+        "mean_wait_min": 170.57457983193277,
+        "p90_wait_min": 309.0
+      },
+      {
+        "arrival_hour": 10,
+        "arrival_count": 2634,
+        "mean_duration_min": 265.57175398633257,
+        "mean_wait_min": 138.125284738041,
+        "p90_wait_min": 125.0
+      },
+      {
+        "arrival_hour": 11,
+        "arrival_count": 3107,
+        "mean_duration_min": 257.8068876729965,
+        "mean_wait_min": 129.127132281944,
+        "p90_wait_min": 120.0
+      },
+      {
+        "arrival_hour": 12,
+        "arrival_count": 4625,
+        "mean_duration_min": 477.83351351351354,
+        "mean_wait_min": 322.1563243243243,
+        "p90_wait_min": 105.0
+      },
+      {
+        "arrival_hour": 13,
+        "arrival_count": 5850,
+        "mean_duration_min": 309.1150427350427,
+        "mean_wait_min": 167.26273504273504,
+        "p90_wait_min": 97.0
+      },
+      {
+        "arrival_hour": 14,
+        "arrival_count": 4795,
+        "mean_duration_min": 349.76079249217935,
+        "mean_wait_min": 275.85422314911364,
+        "p90_wait_min": 104.0
+      },
+      {
+        "arrival_hour": 15,
+        "arrival_count": 2334,
+        "mean_duration_min": 141.16281062553557,
+        "mean_wait_min": 57.79991431019709,
+        "p90_wait_min": 82.0
+      },
+      {
+        "arrival_hour": 16,
+        "arrival_count": 1287,
+        "mean_duration_min": 470.1056721056721,
+        "mean_wait_min": 845.5190365190365,
+        "p90_wait_min": 56.0
+      },
+      {
+        "arrival_hour": 17,
+        "arrival_count": 796,
+        "mean_duration_min": 109.93467336683418,
+        "mean_wait_min": 19.878140703517587,
+        "p90_wait_min": 34.5
+      },
+      {
+        "arrival_hour": 18,
+        "arrival_count": 481,
+        "mean_duration_min": 70.10602910602911,
+        "mean_wait_min": 26.762993762993762,
+        "p90_wait_min": 40.0
+      },
+      {
+        "arrival_hour": 19,
+        "arrival_count": 132,
+        "mean_duration_min": 208.0151515151515,
+        "mean_wait_min": 38.21212121212121,
+        "p90_wait_min": 75.30000000000004
+      },
+      {
+        "arrival_hour": 20,
+        "arrival_count": 108,
+        "mean_duration_min": 37.175925925925924,
+        "mean_wait_min": 29.194444444444443,
+        "p90_wait_min": 56.99999999999997
+      },
+      {
+        "arrival_hour": 21,
+        "arrival_count": 73,
+        "mean_duration_min": 39.794520547945204,
+        "mean_wait_min": 33.23287671232877,
+        "p90_wait_min": 92.99999999999999
+      },
+      {
+        "arrival_hour": 22,
+        "arrival_count": 39,
+        "mean_duration_min": 32.51282051282051,
+        "mean_wait_min": 15.102564102564102,
+        "p90_wait_min": 43.20000000000002
+      },
+      {
+        "arrival_hour": 23,
+        "arrival_count": 28,
+        "mean_duration_min": 306.2142857142857,
+        "mean_wait_min": 292.17857142857144,
+        "p90_wait_min": 265.9000000000003
+      }
+    ],
+    "top_clinicians": [
+      {
+        "doctor_id": 530,
+        "doctor_name": "Dr. Junaid Ul Hassan Khalid",
+        "caseload": 3672,
+        "mean_consult_min": 1.8474945533769063,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 122.88752723311546,
+        "mean_wait_min": 56.06100217864924
+      },
+      {
+        "doctor_id": 193,
+        "doctor_name": "Dr. Abrar Ahmed Bhatti",
+        "caseload": 3604,
+        "mean_consult_min": 16.760266370699224,
+        "median_consult_min": 8.0,
+        "mean_journey_min": 54.839622641509436,
+        "mean_wait_min": 36.28884572697003
+      },
+      {
+        "doctor_id": 202,
+        "doctor_name": "Dr. Mehreen Batool Bokhari",
+        "caseload": 2533,
+        "mean_consult_min": 1.0217133833399132,
+        "median_consult_min": 3.0,
+        "mean_journey_min": 223.11764705882354,
+        "mean_wait_min": 75.48795894196604
+      },
+      {
+        "doctor_id": 163,
+        "doctor_name": "Dr. Sheikh Mustenser Siab",
+        "caseload": 2220,
+        "mean_consult_min": 1.6441441441441442,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 89.74324324324324,
+        "mean_wait_min": 81.27432432432433
+      },
+      {
+        "doctor_id": 166,
+        "doctor_name": "Prof. Dr. Muhammad Farooq",
+        "caseload": 1984,
+        "mean_consult_min": 2.6315524193548385,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 121.53427419354838,
+        "mean_wait_min": 116.43296370967742
+      },
+      {
+        "doctor_id": 165,
+        "doctor_name": "Dr. Asad Ullah",
+        "caseload": 1733,
+        "mean_consult_min": -23.16330063473745,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 71.19907674552799,
+        "mean_wait_min": 86.11829197922677
+      },
+      {
+        "doctor_id": 502,
+        "doctor_name": "Dr. Ifra Khwaja (MO)",
+        "caseload": 1663,
+        "mean_consult_min": 9.446181599518942,
+        "median_consult_min": 4.0,
+        "mean_journey_min": 293.3770294648226,
+        "mean_wait_min": 92.64401683704149
+      },
+      {
+        "doctor_id": 348,
+        "doctor_name": "Dr. Sarah Faiz",
+        "caseload": 1562,
+        "mean_consult_min": 14.014084507042254,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 388.2836107554417,
+        "mean_wait_min": 125.05377720870679
+      },
+      {
+        "doctor_id": 255,
+        "doctor_name": "Dr. Zaira Hussain",
+        "caseload": 1559,
+        "mean_consult_min": 4.578576010262989,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 371.46824887748556,
+        "mean_wait_min": 84.66901860166773
+      },
+      {
+        "doctor_id": 543,
+        "doctor_name": "Dr. Muneeba Manzoor",
+        "caseload": 1534,
+        "mean_consult_min": 2.3265971316818774,
+        "median_consult_min": 0.0,
+        "mean_journey_min": 100.1864406779661,
+        "mean_wait_min": 61.01760104302477
+      }
+    ],
+    "compounding_effects": [
+      {
+        "service_combination": "Consultation Only (No Diagnostics)",
+        "case_count": 41318,
+        "mean_journey_min": 177.26211336463527,
+        "mean_journey_hours": 2.9543685560772546,
+        "mean_waiting_min": 171.74451812769254,
+        "mean_pce_pct": 9.923466418659542
+      },
+      {
+        "service_combination": "Consultation + Lab Only",
+        "case_count": 3790,
+        "mean_journey_min": 1057.1353562005277,
+        "mean_journey_hours": 17.618922603342128,
+        "mean_waiting_min": 109.04696569920844,
+        "mean_pce_pct": 73.82192952061581
+      },
+      {
+        "service_combination": "Consultation + Imaging Only",
+        "case_count": 3799,
+        "mean_journey_min": 425.6277967886286,
+        "mean_journey_hours": 7.09379661314381,
+        "mean_waiting_min": 287.26006843906293,
+        "mean_pce_pct": 11.45095378564802
+      },
+      {
+        "service_combination": "Consultation + Lab + Imaging",
+        "case_count": 1005,
+        "mean_journey_min": 1753.6776119402984,
+        "mean_journey_hours": 29.227960199004976,
+        "mean_waiting_min": 577.8328358208955,
+        "mean_pce_pct": 68.54534967821596
+      }
+    ]
+  },
+  "generated_visualizations": [
+    "outputs/process_performance/patient_journey_duration_distribution.png",
+    "outputs/process_performance/service_vs_waiting_time_by_pathway.png",
+    "outputs/process_performance/departmental_bottlenecks_ranking.png",
+    "outputs/process_performance/temporal_arrival_waiting_patterns.png",
+    "outputs/process_performance/clinician_performance_variance.png"
+  ]
+}

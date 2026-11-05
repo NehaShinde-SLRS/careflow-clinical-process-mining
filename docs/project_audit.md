@@ -1,6 +1,6 @@
 # CareFlow Clinical Process Mining — Project Audit Report
 
-**Audit Date:** 28 October – 4 November 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review, Event Log Validation, Day 6 Process Mining Analysis, Day 7 Data Dictionary, Day 8 Team Integration & Day 9 PM4Py Process Discovery)
+**Audit Date:** 28 October – 5 November 2026 (Consolidated Audit: Ingestion, Staging, Marts, KPIs, Model Review, Event Log Validation, Day 6 Process Mining Analysis, Day 7 Data Dictionary, Day 8 Team Integration, Day 9 PM4Py Process Discovery & Day 10 Clinical Process Performance Analysis)
 **Auditor Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation, Process Mining Analytics)
 **Project Milestone Deadline:** 8 November 2026 (Final Project Handover)
 **Target GCP Project:** `careflow-clinical-process-m`
@@ -45,8 +45,15 @@ This consolidated project audit serves as the official single source of truth fo
   - Technical Integration Audit ([`docs/day8_integration_audit.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day8_integration_audit.md)): 100% schema consistency verified, 0 orphan keys, sub-15ms BI query performance, 4 operational issues identified with production-ready fixes.
 - **Day 9 PM4Py Process Discovery & Model Interchange (100% Complete & Verified):**
   - Production PM4Py Pipeline ([`scripts/pm4py_process_discovery.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/pm4py_process_discovery.py)): Algorithmic process discovery using PM4Py 2.7.23.11 on Python 3.14.7 across 193,443 events and 49,912 cases.
-  - Process Discovery Report ([`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md)): Complete documentation of Frequency DFG (56 edges), Performance DFG, Inductive Petri Net (33 places, 40 transitions, 94 arcs), Process Tree, 602 variants (Pareto Top 2 = 82.76%), and Lab TAT bottleneck quantification (279.3 min / 4.65h).
+  - Process Discovery Report ([`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md)) & Final Audit Report ([`docs/day9_final_verification_report.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_final_verification_report.md)): Complete documentation of Frequency DFG (56 edges), Performance DFG, Inductive Petri Net (33 places, 40 transitions, 94 arcs), Process Tree, 602 variants (Pareto Top 2 = 82.76%), and Lab TAT bottleneck quantification (279.3 min / 4.65h).
   - Reproducible Model Interchange: 5 publication-grade PNG diagrams, Inductive Petri Net XML ([`outputs/process_mining/inductive_petri_net.pnml`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/inductive_petri_net.pnml)), Process Tree ([`outputs/process_mining/inductive_process_tree.ptml`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/inductive_process_tree.ptml)), Graphviz DOT, structured JSON summary, and compressed IEEE XES log ([`data/careflow_event_log.xes.gz`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/data/careflow_event_log.xes.gz), 5.81 MB).
+- **Day 10 Clinical Process Performance Analysis (100% Complete & Verified):**
+  - Production Performance Pipeline ([`scripts/process_performance_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_performance_analysis.py)): Empirical performance decomposition across all 49,912 cases and 819 operational days.
+  - Journey Durations: Cohort mean 294.7 min (4.91h), median 39.0 min, P90 198.0 min (3.30h), P95 353.0 min (5.88h). Core efficiency corridor: 83.79% of visits complete in <= 2 hours.
+  - Service vs Waiting Decomposition: Mean active service 111.6 min (16.07% Process Cycle Efficiency) vs mean passive waiting 184.0 min. Patients wait 1.65 min for every 1 min of care.
+  - Departmental Bottlenecks: Laboratory TAT (mean 930.5m across utilizing cases, 62.96% >2h, 20.25% >8h); Radiology queue wait (mean 595.2m); Registration wait (mean 129.8m).
+  - Delay Patterns & Multi-Service Compounding: Monday morning arrival peak (10,043 cases, wait 209.8m); 06:00-07:00 arrival peak; diagnostic compounding effect (Flow 1: 3.0h vs Flow 5: 29.2h); Clinician throughput variance across 98 attending physicians.
+  - Performance Artifacts: 5 high-resolution PNG charts in `outputs/process_performance/`, structured JSON metrics (`performance_metrics_summary.json`), and standalone evidence bottleneck report (`evidence_based_bottleneck_report.md`).
 - **Downstream Handover (Next Steps for 8 November 2026 Deadline):**
   - Integration with Member 4 (Process Mining & Dashboarding): BI dashboard connection and process discovery import.
 
@@ -164,6 +171,18 @@ The 6 analytical KPI views from `sql/kpi_analysis_views.sql` were deployed and q
   - Compressed IEEE XML XES event log ([`data/careflow_event_log.xes.gz`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/data/careflow_event_log.xes.gz), 5.81 MB).
   - Structured machine-readable JSON summary ([`outputs/process_mining/pm4py_discovery_summary.json`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_mining/pm4py_discovery_summary.json), 6.3 KB).
 
+### I. Day 10 Clinical Process Performance Verification (Completed 5 November 2026)
+- **Pipeline Implementation:** [`scripts/process_performance_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_performance_analysis.py) (executed end-to-end across 49,912 outpatient encounters).
+- **Comprehensive Report:** [`docs/day10_performance_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day10_performance_analysis.md).
+- **Patient Journey Metrics:** Cohort mean journey duration is **294.7 minutes (4.91 hours)** (median: 39.0 min; P90: 198.0 min / 3.30h; P95: 353.0 min / 5.88h). 83.79% of encounters complete within 2 hours.
+- **Service vs Waiting Decomposition:** Mean active clinical care accounts for only **111.6 minutes** (16.07% Process Cycle Efficiency), while patients spend **184.0 minutes** in passive queues.
+- **Departmental Bottlenecks:** Laboratory TAT is the primary institutional delay averaging **930.5 minutes (15.51 hours)** across utilizing cases (62.96% >2 hours; 20.25% >8 hours); Post-consultation imaging queue averages **595.2 minutes (9.92 hours)**; Registration queue wait averages **129.8 minutes**.
+- **Real-Data Operational Patterns:** Monday arrival surge (10,043 cases, wait 209.8m); 06:00-07:00 arrival peak (6,211 arrivals); Diagnostic compounding delay (Flow 1: 3.0h vs Flow 5: 29.2h); Clinician throughput variation across 98 attending physicians.
+- **Generated Artifacts in `outputs/process_performance/`:**
+  - 5 publication-grade PNG diagrams: `patient_journey_duration_distribution.png`, `service_vs_waiting_time_by_pathway.png`, `departmental_bottlenecks_ranking.png`, `temporal_arrival_waiting_patterns.png`, `clinician_performance_variance.png`.
+  - Structured metrics JSON ([`outputs/process_performance/performance_metrics_summary.json`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_performance/performance_metrics_summary.json), 19.5 KB).
+  - Standalone evidence bottleneck report ([`outputs/process_performance/evidence_based_bottleneck_report.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/outputs/process_performance/evidence_based_bottleneck_report.md), 2.9 KB).
+
 ---
 
 ## 3. Evidence-Based Security & Privacy Assessment
@@ -215,7 +234,14 @@ All untracked local files were inspected using strict read-only methods. No cred
 - [x] Day 9 Frequency DFG, Performance DFG, Inductive Petri Net (33 places, 40 transitions, 94 arcs), and Process Tree discovery.
 - [x] Day 9 Process variants analysis and cumulative Pareto curve quantification (Top 2 variants = 82.76%; Top 6 = 90.00%; Top 18 = 95.00%).
 - [x] Day 9 Publication-grade visualization suite and standard interchange artifacts generated (5 PNGs, PNML model, PTML tree, DOT graph, compressed IEEE XES log, structured JSON summary).
-- [x] Day 9 Comprehensive PM4Py Process Discovery Report authored ([`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md)).
+- [x] Day 9 Comprehensive PM4Py Process Discovery Report authored ([`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md)) and Final Verification Report ([`docs/day9_final_verification_report.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_final_verification_report.md)).
+- [x] Day 10 Clinical Process Performance Pipeline authored and executed ([`scripts/process_performance_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_performance_analysis.py)).
+- [x] Day 10 Patient journey duration analysis & percentile modeling across 49,912 outpatient encounters.
+- [x] Day 10 Active service time vs passive waiting queue decomposition & Process Cycle Efficiency (PCE %) calculation.
+- [x] Day 10 Departmental bottleneck ranking & threshold violation quantification (Laboratory TAT: 63.0% >2h).
+- [x] Day 10 Temporal arrival surges, multi-service compounding delay, and clinician workload variance analysis.
+- [x] Day 10 Performance visualization suite and evidence bottleneck reports generated (5 PNGs, JSON, MD in `outputs/process_performance/`).
+- [x] Day 10 Comprehensive Clinical Process Performance Analysis Report authored ([`docs/day10_performance_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day10_performance_analysis.md)).
 
 ### Incomplete Tasks (Roadmap to 8 November 2026 Milestone — Final Project Handover)
 - [ ] **Final Project Handover & Team Integration Sign-Off (Member 4 Integration):**
@@ -225,9 +251,9 @@ All untracked local files were inspected using strict read-only methods. No cred
 
 ---
 
-## 5. Conclusion & Days 4–9 Sign-off
+## 5. Conclusion & Days 4–10 Sign-off
 
-All Day 4 (dbt Model Review), Day 5 (Event Log Validation), Day 6 (Process Mining Analysis), Day 7 (Data Dictionary & Documentation), Day 8 (Team Integration & Architecture), and Day 9 (PM4Py Process Discovery & Integration) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
+All Day 4 (dbt Model Review), Day 5 (Event Log Validation), Day 6 (Process Mining Analysis), Day 7 (Data Dictionary & Documentation), Day 8 (Team Integration & Architecture), Day 9 (PM4Py Process Discovery & Integration), and Day 10 (Clinical Process Performance Analysis) tasks assigned to Member 3 are **100% completed, cloud-verified, and fully documented**.
 
 The warehouse, analytical suite, and engineering documentation now contain:
 1. Verified staging model (`stg_hospital_opd`).
@@ -240,5 +266,6 @@ The warehouse, analytical suite, and engineering documentation now contain:
 8. End-to-end Source-to-Target Mapping (STTM) with architectural lineage flowcharts, star-schema ER diagram, transformation expressions, exception handling rules, and deterministic 1:1 provenance traceability.
 9. Enterprise System Architecture, Master Data Lineage, Team Integration Matrix (with formal Data Contracts A-D), and Technical Integration Audit Report establishing full operational readiness for Member 4.
 10. Complete PM4Py algorithmic process discovery suite featuring Frequency & Performance DFGs, Inductive Petri Net & Process Tree models, 5 publication-grade PNG diagrams, standard PNML/PTML interchange files, and compressed IEEE XML XES event log (`data/careflow_event_log.xes.gz`, 5.81 MB).
+11. Exhaustive clinical process performance decomposition quantifying patient journey duration percentiles, active clinical service vs passive waiting dwell times, Process Cycle Efficiency (PCE %) across 7 clinical pathways, departmental bottleneck rankings, temporal arrival surges, and clinician throughput variance with 5 publication-grade PNG visualizations in `outputs/process_performance/`.
 
 The project is fully prepared for final dashboard integration and process mining handover with Member 4 ahead of the **8 November 2026** milestone deadline.
