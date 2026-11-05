@@ -1,0 +1,25 @@
+Column Name,Missing Values,Available Values,Missing Percentage
+medicine_name,57795,302,99.48
+pharmacy_sale_line_id,57795,302,99.48
+pharmacy_end_datetime,57795,302,99.48
+pharmacy_start_datetime,57795,302,99.48
+imaging_end_datetime,52786,5311,90.86
+imaging_name,52776,5321,90.84
+imaging_result_id,52776,5321,90.84
+imaging_request_id,52776,5321,90.84
+imaging_start_datetime,52776,5321,90.84
+lab_end_datetime,46182,11915,79.49
+lab_start_datetime,41480,16617,71.4
+lab_name,41480,16617,71.4
+lab_id,41480,16617,71.4
+prescription_start_datetime,13,58084,0.02
+record_no,0,58097,0.0
+appointment_id,0,58097,0.0
+prescription_order_id,1,58096,0.0
+prescription_doctor_name,0,58097,0.0
+prescription_doctor_id,0,58097,0.0
+appointment_start_datetime,0,58097,0.0
+patient_id,0,58097,0.0
+prescription_end_datetime,2,58095,0.0
+flow_code,1,58096,0.0
+flow_name,1,58096,0.0
