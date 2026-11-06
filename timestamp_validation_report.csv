@@ -1,0 +1,7 @@
+Column,Missing Values,Valid Timestamps,Invalid Formats
+appointment_start_datetime,0,58097,0
+prescription_start_datetime,13,58084,0
+prescription_end_datetime,2,58095,0
+lab_start_datetime,41480,16617,0
+imaging_start_datetime,52776,5321,0
+pharmacy_start_datetime,57795,302,0
