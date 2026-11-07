@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pnml>
+  <net id="CareFlow_Normative_Reference_Model" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+    <name>
+      <text>CareFlow_Normative_Reference_Model</text>
+    </name>
+    <page id="n0">
+      <place id="source">
+        <name>
+          <text>source</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      <place id="p_lab_in">
+        <name>
+          <text>p_lab_in</text>
+        </name>
+      </place>
+      <place id="p_lab_out">
+        <name>
+          <text>p_lab_out</text>
+        </name>
+      </place>
+      <place id="p_post_diag">
+        <name>
+          <text>p_post_diag</text>
+        </name>
+      </place>
+      <place id="p_pharm_out">
+        <name>
+          <text>p_pharm_out</text>
+        </name>
+      </place>
+      <place id="sink">
+        <name>
+          <text>sink</text>
+        </name>
+      </place>
+      <place id="p_reg">
+        <name>
+          <text>p_reg</text>
+        </name>
+      </place>
+      <place id="p_cons_active">
+        <name>
+          <text>p_cons_active</text>
+        </name>
+      </place>
+      <place id="p_post_cons">
+        <name>
+          <text>p_post_cons</text>
+        </name>
+      </place>
+      <place id="p_lab_active">
+        <name>
+          <text>p_lab_active</text>
+        </name>
+      </place>
+      <place id="p_img_in">
+        <name>
+          <text>p_img_in</text>
+        </name>
+      </place>
+      <place id="p_img_active">
+        <name>
+          <text>p_img_active</text>
+        </name>
+      </place>
+      <place id="p_img_out">
+        <name>
+          <text>p_img_out</text>
+        </name>
+      </place>
+      <place id="p_pre_pharm">
+        <name>
+          <text>p_pre_pharm</text>
+        </name>
+      </place>
+      <place id="p_pharm_in">
+        <name>
+          <text>p_pharm_in</text>
+        </name>
+      </place>
+      <place id="p_pharm_active">
+        <name>
+          <text>p_pharm_active</text>
+        </name>
+      </place>
+      <transition id="t_skip_img">
+        <name>
+          <text>t_skip_img</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="e309133e-785a-4395-a896-d0c7d3388c92"/>
+      </transition>
+      <transition id="t_to_pharm">
+        <name>
+          <text>t_to_pharm</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="ff3c88e9-000b-4c58-b817-baf9d01ed0f1"/>
+      </transition>
+      <transition id="t_reg">
+        <name>
+          <text>Appointment Registration</text>
+        </name>
+      </transition>
+      <transition id="t_cs">
+        <name>
+          <text>Prescription Consultation Started</text>
+        </name>
+      </transition>
+      <transition id="t_lc">
+        <name>
+          <text>Lab Test Completed</text>
+        </name>
+      </transition>
+      <transition id="t_ic">
+        <name>
+          <text>Imaging Completed</text>
+        </name>
+      </transition>
+      <transition id="t_ps">
+        <name>
+          <text>Pharmacy Dispensation Started</text>
+        </name>
+      </transition>
+      <transition id="t_enter_pharm">
+        <name>
+          <text>t_enter_pharm</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="454acc94-d195-46f9-9f66-88fd41aa2b81"/>
+      </transition>
+      <transition id="t_diag_split">
+        <name>
+          <text>t_diag_split</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="807da338-626e-4458-a72b-a020845ca293"/>
+      </transition>
+      <transition id="t_pharm_cycle">
+        <name>
+          <text>t_pharm_cycle</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="6d9a3f29-3b50-464a-bb7e-7e77055c33ea"/>
+      </transition>
+      <transition id="t_pharm_done">
+        <name>
+          <text>t_pharm_done</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="7c7ed43e-7d1e-4f9e-b6b1-ace42ba79005"/>
+      </transition>
+      <transition id="t_pc">
+        <name>
+          <text>Pharmacy Dispensation Completed</text>
+        </name>
+      </transition>
+      <transition id="t_img_cycle">
+        <name>
+          <text>t_img_cycle</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="1a6d8243-8a21-4182-962d-bfb81767a3ce"/>
+      </transition>
+      <transition id="t_diag_join">
+        <name>
+          <text>t_diag_join</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="3856915a-148a-4efb-a7e3-1d7ac4331d6f"/>
+      </transition>
+      <transition id="t_cc">
+        <name>
+          <text>Prescription Consultation Completed</text>
+        </name>
+      </transition>
+      <transition id="t_skip_lab">
+        <name>
+          <text>t_skip_lab</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="6080ad48-f516-4a5b-870e-94b50057d198"/>
+      </transition>
+      <transition id="t_lab_cycle">
+        <name>
+          <text>t_lab_cycle</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="759d6014-6e0f-42e4-a81d-88f47b1526df"/>
+      </transition>
+      <transition id="t_is">
+        <name>
+          <text>Imaging Started</text>
+        </name>
+      </transition>
+      <transition id="t_skip_pharm">
+        <name>
+          <text>t_skip_pharm</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="4f45e3d4-5e83-42c9-bdb9-32227125d826"/>
+      </transition>
+      <transition id="t_reconsult">
+        <name>
+          <text>t_reconsult</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="4ebeb4e2-213b-47ed-8e82-63e43c3028b5"/>
+      </transition>
+      <transition id="t_ls">
+        <name>
+          <text>Lab Test Started</text>
+        </name>
+      </transition>
+      <arc id="2505876828416" source="t_cs" target="p_cons_active"/>
+      <arc id="2505876935808" source="p_post_cons" target="t_diag_split"/>
+      <arc id="2505876781056" source="t_diag_join" target="p_post_diag"/>
+      <arc id="2505876782208" source="p_pre_pharm" target="t_enter_pharm"/>
+      <arc id="2505877750272" source="t_pharm_cycle" target="p_pharm_in"/>
+      <arc id="2505877766416" source="p_lab_out" target="t_lab_cycle"/>
+      <arc id="2505877017744" source="t_cc" target="p_post_cons"/>
+      <arc id="2505877281040" source="t_is" target="p_img_active"/>
+      <arc id="2505877163536" source="t_ic" target="p_img_out"/>
+      <arc id="2505876780048" source="t_skip_img" target="p_img_out"/>
+      <arc id="2505876781200" source="p_post_diag" target="t_reconsult"/>
+      <arc id="2505876782352" source="t_enter_pharm" target="p_pharm_in"/>
+      <arc id="2505877259040" source="p_lab_active" target="t_lc"/>
+      <arc id="2505876780192" source="p_img_out" target="t_img_cycle"/>
+      <arc id="2505876781344" source="t_reconsult" target="p_reg"/>
+      <arc id="2505876782496" source="p_pharm_in" target="t_ps"/>
+      <arc id="2505876671408" source="t_skip_lab" target="p_lab_out"/>
+      <arc id="2505876449200" source="source" target="t_reg"/>
+      <arc id="2505876828720" source="p_cons_active" target="t_cc"/>
+      <arc id="2505877798064" source="p_lab_in" target="t_skip_lab"/>
+      <arc id="2505876780336" source="t_img_cycle" target="p_img_in"/>
+      <arc id="2505876782640" source="t_ps" target="p_pharm_active"/>
+      <arc id="2505877258560" source="t_ls" target="p_lab_active"/>
+      <arc id="2505876780480" source="p_lab_out" target="t_diag_join"/>
+      <arc id="2505876781632" source="p_post_diag" target="t_to_pharm"/>
+      <arc id="2505876782784" source="p_pharm_active" target="t_pc"/>
+      <arc id="2505876726608" source="p_reg" target="t_cs"/>
+      <arc id="2505876731088" source="t_reg" target="p_reg"/>
+      <arc id="2505876533328" source="t_diag_split" target="p_img_in"/>
+      <arc id="2505876532560" source="p_lab_in" target="t_ls"/>
+      <arc id="2505877797840" source="t_lc" target="p_lab_out"/>
+      <arc id="2505877766608" source="t_lab_cycle" target="p_lab_in"/>
+      <arc id="2505876781776" source="t_to_pharm" target="p_pre_pharm"/>
+      <arc id="2505876782928" source="t_pc" target="p_pharm_out"/>
+      <arc id="2505877749840" source="p_pharm_out" target="t_pharm_done"/>
+      <arc id="2505877282272" source="p_img_in" target="t_is"/>
+      <arc id="2505876781920" source="p_pre_pharm" target="t_skip_pharm"/>
+      <arc id="2505877749984" source="t_pharm_done" target="sink"/>
+      <arc id="2505876939888" source="t_diag_split" target="p_lab_in"/>
+      <arc id="2505877162736" source="p_img_active" target="t_ic"/>
+      <arc id="2505876779760" source="p_img_in" target="t_skip_img"/>
+      <arc id="2505876780912" source="p_img_out" target="t_diag_join"/>
+      <arc id="2505876782064" source="t_skip_pharm" target="sink"/>
+      <arc id="2505877750128" source="p_pharm_out" target="t_pharm_cycle"/>
+    </page>
+    <finalmarkings>
+      <marking>
+        <place idref="sink">
+          <text>1</text>
+        </place>
+      </marking>
+    </finalmarkings>
+  </net>
+</pnml>

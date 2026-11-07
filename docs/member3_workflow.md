@@ -3,8 +3,8 @@
 **Project:** CareFlow — Clinical Pathway Process Mining
 **Role:** Member 3 (Data Engineering: Ingestion, SQL Validation, dbt Marts, KPI Views, Event-Log Preparation, Process Mining Analytics)
 **Milestone Deadline:** 8 November 2026 (Final Project Handover)
-**Current Progress:** **100% Verified Completion for Days 1 through 11**
-**Last Updated:** 6 November 2026
+**Current Progress:** **100% Verified Completion for Days 1 through 12**
+**Last Updated:** 7 November 2026
 
 ---
 
@@ -156,6 +156,37 @@ The 6 analytical KPI views from [`sql/kpi_analysis_views.sql`](file:///c:/Users/
 - Production Migration Blueprint: Documented Google BigQuery DirectQuery Power Query (M) script and Dual Storage Mode optimization for enterprise Power BI Service deployment.
 - Safe Inspector Script: [`scripts/inspect_pbix_datamodel.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/inspect_pbix_datamodel.py) providing read-only, credential-sanitized verification.
 
+### L. Day 12 Clinical Process Conformance & Compliance Checking (100% Verified)
+- Comprehensive technical report documented in [`docs/day12_conformance_checking.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day12_conformance_checking.md).
+- In-Memory Petri Net Verification: Authored and executed [`scripts/test_petri_net_loops.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/test_petri_net_loops.py) with exit code 0, verifying 100% fitness on all 9 canonical clinical pathways and proving chronological microsecond tie-breaking across 34,739 cases with identical event timestamps.
+- Production Conformance Pipeline: Authored and executed [`scripts/process_conformance_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_conformance_analysis.py) across all **49,912 cases and 193,443 events** in 79.33 seconds with zero truncation or sampling.
+- Normative Petri Net Architecture: Built and verified a marked Petri Net $N = (P, T, F, m_0, m_f)$ comprising **16 places, 21 transitions** (9 visible clinical activities + 12 silent $\tau$ control routings), and **44 directed arcs**.
+- Conformance Metrics & Empirical Scorecard:
+  - **Overall Log Fitness ($f_{log}$):** **97.19%** (579,787 / 581,159 tokens consumed correctly).
+  - **Average Trace Fitness ($\bar{f}_{trace}$):** **97.82%** (Median: **100.00%**).
+  - **Guideline Adherence Rate:** **86.94%** (**43,395 cases** strictly conforming).
+  - **Behavioral Precision ($ETConformance$):** **99.36%** (high behavioral specificity, closely constraining valid clinical sequences).
+  - **Optimal Alignment Fitness ($A^*$):** **95.89%** mean fitness across 602 unique trace variants with exact case-frequency weighting; **168,696 Synchronous moves** (86.34% of 195,379 total moves; 87.21% of log events), **24,747 Log-Only moves** (12.67% of total moves; 12.79% of log events), and **1,936 Model-Only moves** (0.99% of total moves).
+- Empirical Deviation Taxonomy:
+  - Pre-Consultation Imaging Inversions: **1,915 cases (3.84%)**.
+  - Incomplete Diagnostic Discharges: **1,575 laboratory cases (3.16%)**, **8 imaging cases (0.02%)**.
+  - Pre-Consultation Laboratory Inversions: **498 cases (1.00%)**.
+  - Registration Walk-In Bypasses: **418 cases (0.84%)** (Imaging: 282, Lab: 131, Consultation: 5).
+  - Incomplete Consultations & Pharmacy Dispensations: **0 cases (0.00%)** (zero-defect benchmarks).
+  - Physical Timestamp Anomaly Flags: **1,183 events across 418 cases**.
+- Rework & Clinical Delay Impact:
+  - Direct Self-Loops: **20,070 loops across 4,231 cases (8.48%)**, driven by multi-order phlebotomy batching (11,387 loops) and staggered analyzer releases (8,238 loops).
+  - Physician Re-Consultations: **639 cases (1.28%)**.
+  - Length of Stay (LOS) Association: Encounters with rework are statistically associated with a **6.9x longer median visit duration** (**4.03 hours** with rework vs **0.58 hours** without rework).
+- Conformance Artifact Inventory: Generated all 7 verified artifacts in `outputs/process_conformance/`:
+  1. `reference_model.pnml` (9,440 bytes) — verified XML Petri Net.
+  2. `reference_model.png` (957,043 bytes) — 300 DPI publication diagram of Petri Net architecture.
+  3. `conformance_overview_dashboard.png` (493,454 bytes) — 4-panel executive dashboard.
+  4. `deviations_distribution.png` (147,341 bytes) — horizontal deviation bar chart.
+  5. `rework_and_loops_analysis.png` (251,945 bytes) — 2-panel rework delay and LOS boxplot chart.
+  6. `conformance_summary_metrics.json` (5,877 bytes) — structured machine-readable metrics.
+  7. `conformance_audit_report.md` (3,237 bytes) — standalone executive compliance audit report.
+
 ---
 
 ## 3. How to Execute the Pipeline
@@ -211,6 +242,16 @@ python scripts/process_performance_analysis.py
 python scripts/inspect_pbix_datamodel.py
 ```
 
+### Step 9: Execute Day 12 Petri Net Pathway Verification Script
+```powershell
+python scripts/test_petri_net_loops.py
+```
+
+### Step 10: Execute Day 12 Process Conformance Analysis Pipeline
+```powershell
+python scripts/process_conformance_analysis.py
+```
+
 ---
 
 ## 4. Current Handover Status & Milestone Deliverables
@@ -239,6 +280,7 @@ python scripts/inspect_pbix_datamodel.py
 | **Day 9 PM4Py Process Discovery** | Required | **COMPLETED** | Pipeline [`scripts/pm4py_process_discovery.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/pm4py_process_discovery.py), reports [`docs/day9_process_discovery.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_process_discovery.md) & [`docs/day9_final_verification_report.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day9_final_verification_report.md), 10 artifacts |
 | **Day 10 Process Performance** | Required | **COMPLETED** | Pipeline [`scripts/process_performance_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_performance_analysis.py), report [`docs/day10_performance_analysis.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day10_performance_analysis.md), 7 artifacts in `outputs/process_performance/` |
 | **Day 11 Power BI Integration** | Required | **COMPLETED** | Dashboard [`careflow_POWERBI_dashboard.pbix`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/careflow_POWERBI_dashboard.pbix) (5.08 MB) verified, report [`docs/day11_powerbi_integration.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day11_powerbi_integration.md), 19 visuals, 11 DAX measures, 100% BigQuery parity |
+| **Day 12 Process Conformance** | Required | **COMPLETED** | Pipelines [`scripts/test_petri_net_loops.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/test_petri_net_loops.py) & [`scripts/process_conformance_analysis.py`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/scripts/process_conformance_analysis.py), report [`docs/day12_conformance_checking.md`](file:///c:/Users/user/Documents/careflow-clinical-process-mining/docs/day12_conformance_checking.md), 7 artifacts in `outputs/process_conformance/` ($f_{log}=97.19\%$, Precision=99.36%) |
 | **Handover to Member 4** | Ready | **COMPLETED** | All upstream contracts, marts, views, compressed XES log, visual models, and performance benchmarks integrated into Power BI |
 
-**Overall Progress:** **100% COMPLETED** (Days 1 through 11 milestones fully achieved ahead of the 8 November 2026 deadline).
+**Overall Progress:** **100% COMPLETED** (Days 1 through 12 milestones fully achieved ahead of the 8 November 2026 deadline).

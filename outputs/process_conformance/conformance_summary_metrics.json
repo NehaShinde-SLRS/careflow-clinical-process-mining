@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "project": "CareFlow Clinical Process Mining",
+    "milestone": "Day 12 - Advanced Process Mining & Conformance Checking",
+    "execution_date": "2026-11-07",
+    "author": "Member 3 (Data Engineering & Process Mining)",
+    "methodology": "PM4Py 2.7.23.11 Token-Based Replay, Alignment Conformance, and Empirical Frequency Analytics"
+  },
+  "conformance_metrics": {
+    "log_fitness": 0.9719,
+    "log_fitness_pct": 97.19,
+    "average_trace_fitness": 0.9782,
+    "average_trace_fitness_pct": 97.82,
+    "median_trace_fitness": 1.0,
+    "perfectly_fitting_traces": 43395,
+    "total_traces": 49912,
+    "perc_fit_traces": 86.94,
+    "total_produced_tokens": 581159,
+    "total_consumed_tokens": 579787,
+    "total_missing_tokens": 15635,
+    "total_remaining_tokens": 17007,
+    "model_precision": 0.9936,
+    "model_precision_pct": 99.36,
+    "mean_alignment_fitness": 0.9589,
+    "mean_alignment_fitness_pct": 95.89,
+    "median_alignment_fitness": 1.0,
+    "total_synchronous_moves": 168696,
+    "total_log_only_moves": 24747,
+    "total_model_only_moves": 1936
+  },
+  "deviations": {
+    "registration_bypasses": {
+      "total_cases": 418,
+      "percentage": 0.84,
+      "breakdown": {
+        "Imaging Started": 282,
+        "Lab Test Started": 131,
+        "Prescription Consultation Started": 5
+      },
+      "evidence": "Observed cases where the first event in the case sequence is not 'Appointment Registration'."
+    },
+    "pre_consultation_imaging_inversions": {
+      "total_cases": 1915,
+      "percentage": 3.84,
+      "evidence": "Observed encounters where 'Imaging Started' timestamp occurs prior to 'Prescription Consultation Started'."
+    },
+    "pre_consultation_lab_inversions": {
+      "total_cases": 498,
+      "percentage": 1.0,
+      "evidence": "Observed encounters where 'Lab Test Started' timestamp occurs prior to 'Prescription Consultation Started'."
+    },
+    "incomplete_diagnostic_discharges": {
+      "incomplete_laboratory_cases": 1575,
+      "incomplete_laboratory_pct": 3.16,
+      "incomplete_imaging_cases": 8,
+      "incomplete_imaging_pct": 0.02,
+      "evidence": "Observed cases containing a 'Started' diagnostic event without a corresponding 'Completed' event."
+    },
+    "incomplete_consultations": {
+      "total_cases": 0,
+      "percentage": 0.0,
+      "evidence": "Encounters containing 'Prescription Consultation Started' without 'Prescription Consultation Completed'."
+    },
+    "incomplete_pharmacy": {
+      "total_cases": 0,
+      "percentage": 0.0,
+      "evidence": "Encounters containing 'Pharmacy Dispensation Started' without 'Pharmacy Dispensation Completed'."
+    },
+    "timestamp_anomaly_inversions": {
+      "total_events": 1183,
+      "affected_cases": 418,
+      "percentage": 0.84,
+      "evidence": "Events flagged with timestamp_anomaly_flag == 1 due to physical timestamp inversions."
+    }
+  },
+  "rework_and_loops": {
+    "total_self_loops": 20070,
+    "cases_with_loops": 4231,
+    "cases_with_loops_pct": 8.48,
+    "reconsultation_cases": 639,
+    "reconsultation_cases_pct": 1.28,
+    "activity_repetition_cases": {
+      "Appointment Registration": 0,
+      "Imaging Completed": 97,
+      "Imaging Started": 98,
+      "Lab Test Completed": 3079,
+      "Lab Test Started": 4107,
+      "Pharmacy Dispensation Completed": 79,
+      "Pharmacy Dispensation Started": 79,
+      "Prescription Consultation Completed": 639,
+      "Prescription Consultation Started": 639
+    },
+    "activity_repetition_pct": {
+      "Appointment Registration": 0.0,
+      "Imaging Completed": 0.19,
+      "Imaging Started": 0.2,
+      "Lab Test Completed": 6.17,
+      "Lab Test Started": 8.23,
+      "Pharmacy Dispensation Completed": 0.16,
+      "Pharmacy Dispensation Started": 0.16,
+      "Prescription Consultation Completed": 1.28,
+      "Prescription Consultation Started": 1.28
+    },
+    "loop_breakdown": [
+      {
+        "activity": "Lab Test Started",
+        "loop_count": 11387,
+        "affected_cases": 4092,
+        "mean_delay_min": 0.5132168262053218,
+        "median_delay_min": 0.0
+      },
+      {
+        "activity": "Lab Test Completed",
+        "loop_count": 8238,
+        "affected_cases": 3038,
+        "mean_delay_min": 356.94525370235493,
+        "median_delay_min": 8.0
+      },
+      {
+        "activity": "Pharmacy Dispensation Started",
+        "loop_count": 150,
+        "affected_cases": 79,
+        "mean_delay_min": 0.0,
+        "median_delay_min": 0.0
+      },
+      {
+        "activity": "Pharmacy Dispensation Completed",
+        "loop_count": 150,
+        "affected_cases": 79,
+        "mean_delay_min": 0.04,
+        "median_delay_min": 0.0
+      },
+      {
+        "activity": "Imaging Started",
+        "loop_count": 46,
+        "affected_cases": 46,
+        "mean_delay_min": 43.891304347826086,
+        "median_delay_min": 5.5
+      },
+      {
+        "activity": "Imaging Completed",
+        "loop_count": 39,
+        "affected_cases": 39,
+        "mean_delay_min": 156.6153846153846,
+        "median_delay_min": 2.0
+      },
+      {
+        "activity": "Prescription Consultation Completed",
+        "loop_count": 30,
+        "affected_cases": 28,
+        "mean_delay_min": 1353.3,
+        "median_delay_min": 1.5
+      },
+      {
+        "activity": "Prescription Consultation Started",
+        "loop_count": 30,
+        "affected_cases": 29,
+        "mean_delay_min": 18.9,
+        "median_delay_min": 0.0
+      }
+    ],
+    "stay_duration_comparison_hours": {
+      "without_rework": {
+        "mean": 3.59,
+        "median": 0.58,
+        "p75": 1.15
+      },
+      "with_rework": {
+        "mean": 19.2,
+        "median": 4.03,
+        "p75": 8.13
+      }
+    }
+  }
+}
