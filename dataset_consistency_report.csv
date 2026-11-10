@@ -1,0 +1,6 @@
+Metric,cleaned_HospitalOPD.csv,HospitalOPD_cleaned.xls
+Total Records,62418,62422
+Total Columns,24,24
+Unique Patients,39442,39442
+Unique Appointments,49912,49912
+Duplicate Rows,0,0
